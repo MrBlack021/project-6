@@ -2,20 +2,25 @@ import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-    variant?: 'gradient' | 'outline';
+    // FIX: Add 'gradient' to the list of allowed variants.
+    variant?: 'primary' | 'outline' | 'gradient';
 }
 
-const Button: React.FC<ButtonProps> = ({ children, variant = 'gradient', className = '', ...props }) => {
-    const baseClasses = 'px-8 py-3 rounded-full font-poppins font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4';
+const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', className = '', ...props }) => {
+    const baseClasses = 'px-6 py-3 rounded-md font-poppins font-semibold text-sm transition-all duration-300 transform active:scale-95 focus:outline-none focus:ring-4';
     
     let variantClasses = '';
     switch (variant) {
         case 'outline':
-            variantClasses = 'border-2 border-primary/50 text-light-text-secondary dark:text-dark-text-secondary hover:text-white hover:border-primary hover:bg-primary focus:ring-primary/30';
+            variantClasses = 'border border-light-border dark:border-dark-border text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-bg-secondary dark:hover:bg-dark-bg-secondary hover:text-light-text-main dark:hover:text-dark-text-main focus:ring-primary/20';
             break;
+        // FIX: Add a case for the 'gradient' variant to apply specific styles.
         case 'gradient':
+            variantClasses = 'bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 focus:ring-primary/30';
+            break;
+        case 'primary':
         default:
-            variantClasses = 'bg-gradient-to-r from-primary to-accent text-white shadow-lg hover:shadow-glow-primary focus:ring-accent/40';
+            variantClasses = 'bg-primary text-white hover:opacity-90 focus:ring-primary/30';
             break;
     }
 

@@ -9,53 +9,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-    <style>
-        .aurora-bg {
-            background: radial-gradient(50% 50% at 50% 50%, rgba(255, 26, 142, 0.2) 0%, rgba(28, 28, 44, 0) 100%);
-            animation: aurora 10s ease-in-out infinite alternate;
-        }
-        @keyframes aurora {
-            0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
-            100% { transform: scale(1.5) rotate(90deg); opacity: 1; }
-        }
-        .cursor-light {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 26, 142, 0.08) 0%, rgba(255, 26, 142, 0) 60%);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s, background 0.3s;
-            z-index: 9999;
-        }
-        body:hover .cursor-light {
-            opacity: 1;
-        }
-    </style>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        'primary': '#FF1A8E', // Magenta
-                        'accent': '#00E0C7', // Teal
+                        'primary': '#007AFF', // Apple Blue
                         'light': {
                             'bg-main': '#FFFFFF',
-                            'bg-secondary': '#F5F7FA',
-                            'text-main': '#1a1a2e',
-                            'text-secondary': '#5c5c7a',
-                            'border': '#e5e7eb',
+                            'bg-secondary': '#F5F5F7',
+                            'text-main': '#1D1D1F', // Near Black
+                            'text-secondary': '#6E6E73',
+                            'border': '#D2D2D7',
                         },
                         'dark': {
-                            'bg-main': '#05050a',
-                            'bg-secondary': '#111118',
-                            'text-main': '#f0f0f0',
-                            'text-secondary': '#a0a0b0',
-                            'border': 'rgba(255, 255, 255, 0.1)',
+                            'bg-main': '#000000',
+                            'bg-secondary': '#1D1D1F',
+                            'text-main': '#F5F5F7',
+                            'text-secondary': '#A1A1A6',
+                            'border': '#424245',
                         }
                     },
                     fontFamily: {
@@ -63,23 +36,19 @@
                         poppins: ['Poppins', 'sans-serif'],
                     },
                     boxShadow: {
-                        'soft': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
-                        'glow-primary': '0 0 25px rgba(255, 26, 142, 0.4)',
-                    },
-                    animation: {
-                        'scanline': 'scanline 4s linear infinite',
-                        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+                        'soft': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        'soft-dark': '0 4px 12px rgba(0, 0, 0, 0.1)',
                     },
                     keyframes: {
-                        'scanline': {
-                            '0%': { transform: 'translateY(-10%)' },
-                            '100%': { transform: 'translateY(110%)' },
+                        float: {
+                            '0%': { transform: 'translateY(0px)', opacity: '0.6' },
+                            '50%': { transform: 'translateY(-20px)', opacity: '1' },
+                            '100%': { transform: 'translateY(0px)', opacity: '0.6' },
                         },
-                        'pulse-glow': {
-                            '0%, 100%': { boxShadow: '0 0 25px rgba(255, 26, 142, 0.2)' },
-                            '50%': { boxShadow: '0 0 45px rgba(255, 26, 142, 0.5)' },
-                        }
-                    }
+                    },
+                    animation: {
+                        float: 'float 6s ease-in-out infinite',
+                    },
                 }
             }
         }

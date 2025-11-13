@@ -11,7 +11,6 @@ import Register from './pages/Register';
 import FAQ from './pages/FAQ';
 import Dashboard from './pages/Dashboard';
 import Contact from './pages/Contact';
-import { CursorLight } from './components/CursorLight';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import PaymentSuccess from './pages/PaymentSuccess';
@@ -38,7 +37,6 @@ const ThemedApp: React.FC = () => {
 
     return (
         <HashRouter>
-            <CursorLight />
             <ScrollToTop />
             <div className="flex flex-col min-h-screen bg-light-bg-main dark:bg-dark-bg-main text-light-text-main dark:text-dark-text-main">
                 <Header />

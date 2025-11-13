@@ -7,13 +7,13 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 const AdminAccessModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     return (
         <div 
-            className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
             onClick={onClose}
             aria-modal="true"
             role="dialog"
         >
             <div 
-                className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border rounded-lg shadow-soft p-8 max-w-sm w-full relative transform transition-all"
+                className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border rounded-lg shadow-soft dark:shadow-soft-dark p-8 max-w-sm w-full relative transform transition-all"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button 
@@ -28,7 +28,7 @@ const AdminAccessModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6">
                         The agent building platform is a restricted area. Please contact support if you believe you should have access.
                     </p>
-                    <Button onClick={onClose} variant="gradient">
+                    <Button onClick={onClose} variant="primary">
                         Got It
                     </Button>
                 </div>
@@ -50,8 +50,8 @@ const Header: React.FC = () => {
         { name: 'Contact', path: '/contact' },
     ];
 
-    const linkClasses = "relative text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text-main dark:hover:text-dark-text-main transition-colors duration-300 py-2";
-    const activeLinkClasses = "text-light-text-main dark:text-dark-text-main font-semibold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-4 after:h-0.5 after:bg-primary after:rounded-full";
+    const linkClasses = "text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text-main dark:hover:text-dark-text-main transition-colors duration-300 py-2";
+    const activeLinkClasses = "text-light-text-main dark:text-dark-text-main font-semibold";
 
     const handleLaunchClick = () => {
         setIsMenuOpen(false);
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <header className="bg-light-bg-main/80 dark:bg-dark-bg-main/80 backdrop-blur-xl sticky top-0 z-40 border-b border-light-border dark:border-dark-border">
+            <header className="bg-light-bg-main/80 dark:bg-dark-bg-secondary/80 backdrop-blur-lg sticky top-0 z-40 border-b border-light-border dark:border-dark-border">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
                         <NavLink to="/" className="flex items-center space-x-2">
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                         </nav>
                         
                         <div className="hidden md:flex items-center gap-4">
-                             <Button onClick={handleLaunchClick} variant="gradient">Huntifyy Agent Platform</Button>
+                             <Button onClick={handleLaunchClick} variant="primary">Huntifyy Agent Platform</Button>
                              <ThemeSwitcher />
                         </div>
 
@@ -110,7 +110,7 @@ const Header: React.FC = () => {
                                     {link.name}
                                 </NavLink>
                             ))}
-                             <Button onClick={handleLaunchClick} variant="gradient" className='mt-8'>Huntifyy Agent Platform</Button>
+                             <Button onClick={handleLaunchClick} variant="primary" className='mt-8'>Huntifyy Agent Platform</Button>
                         </nav>
                     </div>
                 )}

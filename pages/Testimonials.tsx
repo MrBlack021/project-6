@@ -41,21 +41,15 @@ const testimonials = [
 ];
 
 const TestimonialCard: React.FC<typeof testimonials[0]> = ({ quote, name, location, image }) => (
-    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-xl border border-light-border dark:border-dark-border h-full flex flex-col relative group overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl"></div>
-        <div className="absolute inset-0 border border-light-border dark:border-dark-border rounded-xl group-hover:border-primary/50 transition-colors duration-300"></div>
-        
-        <div className="relative z-10">
-            <span className="absolute -top-4 -left-4 text-8xl font-poppins font-bold text-black/5 dark:text-white/5">“</span>
-            <p className="text-light-text-secondary dark:text-dark-text-secondary italic mb-6 flex-grow z-10 relative">
-                {quote}
-            </p>
-            <div className="flex items-center mt-auto">
-                <img src={image} alt={name} className="w-14 h-14 rounded-full mr-4 object-cover" />
-                <div>
-                    <p className="font-bold text-light-text-main dark:text-dark-text-main text-lg">{name}</p>
-                    <p className="text-light-text-secondary dark:text-dark-text-secondary">{location}</p>
-                </div>
+    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full flex flex-col transition-all duration-300 hover:shadow-soft dark:hover:shadow-soft-dark hover:-translate-y-1 hover:border-light-text-secondary/50 dark:hover:border-dark-text-secondary/50">
+        <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6 flex-grow text-lg">
+            "{quote}"
+        </p>
+        <div className="flex items-center mt-auto">
+            <img src={image} alt={name} className="w-14 h-14 rounded-full mr-4 object-cover" />
+            <div>
+                <p className="font-bold text-light-text-main dark:text-dark-text-main text-lg">{name}</p>
+                <p className="text-light-text-secondary dark:text-dark-text-secondary">{location}</p>
             </div>
         </div>
     </div>

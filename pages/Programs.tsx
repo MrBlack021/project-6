@@ -9,10 +9,10 @@ const TimelineStep: React.FC<{ icon: React.ReactNode; title: string; description
     
     return (
         <div ref={ref} className="relative flex items-start">
-            <div className={`flex-shrink-0 w-12 h-12 rounded-full bg-light-bg-secondary dark:bg-dark-bg-secondary border-2 border-primary/50 text-primary flex items-center justify-center z-10 transition-all duration-500 ${isInView ? 'scale-100 border-primary' : 'scale-0'}`}>
+            <div className={`flex-shrink-0 w-8 h-8 rounded-full bg-light-bg-secondary dark:bg-dark-bg-secondary border-2 ${isInView ? 'border-primary' : 'border-light-border dark:border-dark-border'} text-primary flex items-center justify-center z-10 transition-all duration-500`}>
                 {icon}
             </div>
-            {!isLast && <div className={`absolute top-12 left-6 h-full w-0.5 bg-light-border dark:bg-dark-border transition-transform duration-500 delay-200 origin-top ${isInView ? 'scale-y-100' : 'scale-y-0'}`}></div>}
+            {!isLast && <div className={`absolute top-8 left-4 h-full w-0.5 bg-light-border dark:bg-dark-border transition-transform duration-500 delay-200 origin-top ${isInView ? 'scale-y-100' : 'scale-y-0'}`}></div>}
             <div className={`ml-6 transition-all duration-500 delay-300 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
                 <h4 className="text-xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-1">{title}</h4>
                 <p className="text-light-text-secondary dark:text-dark-text-secondary">{description}</p>
@@ -33,10 +33,10 @@ const Programs: React.FC = () => {
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
 
     const startupPitchSteps = [
-        { icon: <span className="font-bold">1</span>, title: 'Idea Submission', description: 'Submit your startup idea through our portal with a brief overview of your concept and market.' },
-        { icon: <span className="font-bold">2</span>, title: 'Pitch Deck Refinement', description: 'Work with our mentors to craft a compelling pitch deck that highlights your vision and value proposition.' },
-        { icon: <span className="font-bold">3</span>, title: 'Presentation Coaching', description: 'Receive one-on-one coaching to perfect your delivery, storytelling, and Q&A handling skills.' },
-        { icon: <span className="font-bold">4</span>, title: 'Investor Connect', description: 'Pitch your polished idea to our network of angel investors and venture capitalists on Demo Day.', isLast: true },
+        { icon: <span className="font-semibold text-sm">1</span>, title: 'Idea Submission', description: 'Submit your startup idea through our portal with a brief overview of your concept and market.' },
+        { icon: <span className="font-semibold text-sm">2</span>, title: 'Pitch Deck Refinement', description: 'Work with our mentors to craft a compelling pitch deck that highlights your vision and value proposition.' },
+        { icon: <span className="font-semibold text-sm">3</span>, title: 'Presentation Coaching', description: 'Receive one-on-one coaching to perfect your delivery, storytelling, and Q&A handling skills.' },
+        { icon: <span className="font-semibold text-sm">4</span>, title: 'Investor Connect', description: 'Pitch your polished idea to our network of angel investors and venture capitalists on Demo Day.', isLast: true },
     ];
 
     return (
@@ -48,16 +48,16 @@ const Programs: React.FC = () => {
                 </FadeIn>
 
                 <FadeIn>
-                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-xl shadow-soft mb-16">
+                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-lg shadow-soft dark:shadow-soft-dark mb-16">
                         <div className="grid md:grid-cols-2 gap-12 items-start">
                             <div>
                                 <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">AI Challenge: A Talent Pipeline</h2>
                                 <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6">More than a competition, our AI Challenge is a high-fidelity talent vetting process. We identify and cultivate elite AI developers through practical, high-pressure challenges, producing graduates who are not just skilled, but proven innovators ready to build.</p>
-                                <div className="my-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r-lg">
+                                <div className="my-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r-sm">
                                     <p className="font-bold text-primary">🏆 Prize Pool: ₹5,000 to ₹5,00,000 for top performers!</p>
                                 </div>
                                 
-                                <button onClick={() => setIsDetailsVisible(prev => !prev)} className="text-primary hover:text-accent font-semibold mb-6 inline-block group">
+                                <button onClick={() => setIsDetailsVisible(prev => !prev)} className="text-primary hover:opacity-80 font-semibold mb-6 inline-block group">
                                     <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
                                         {isDetailsVisible ? 'Hide Curriculum Details' : 'View Full Curriculum →'}
                                     </span>
@@ -81,7 +81,7 @@ const Programs: React.FC = () => {
                                 </div>
 
                                 <div className="mt-10">
-                                   <Link to="/register"><Button variant="gradient">Enter the Competition</Button></Link>
+                                   <Link to="/register"><Button variant="primary">Enter the Competition</Button></Link>
                                 </div>
                             </div>
                             <div className="hidden md:block">
@@ -98,15 +98,15 @@ const Programs: React.FC = () => {
                             Our programs are not isolated silos. They are two halves of a powerful innovation engine, creating a unique flywheel effect that mitigates risk and maximizes potential for investors.
                         </p>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
-                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-6 rounded-xl border border-light-border dark:border-dark-border text-center w-full md:w-1/3">
+                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-6 rounded-lg border border-light-border dark:border-dark-border text-center w-full md:w-1/3">
                                 <h3 className="font-poppins font-bold text-primary">Proven Talent</h3>
                                 <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-2">AI Challenge graduates with validated, practical skills.</p>
                             </div>
                             <div className="text-4xl text-primary transform md:-rotate-0 rotate-90 mx-8 my-4 md:my-0">
                                 &harr;
                             </div>
-                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-6 rounded-xl border border-light-border dark:border-dark-border text-center w-full md:w-1/3">
-                                <h3 className="font-poppins font-bold text-accent">Validated Ideas</h3>
+                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-6 rounded-lg border border-light-border dark:border-dark-border text-center w-full md:w-1/3">
+                                <h3 className="font-poppins font-bold text-primary">Validated Ideas</h3>
                                 <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-2">Curated startups from all sectors, mentored for growth.</p>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ const Programs: React.FC = () => {
                 </FadeIn>
 
                 <FadeIn>
-                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-xl shadow-soft">
+                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-lg shadow-soft dark:shadow-soft-dark">
                         <div className="grid md:grid-cols-2 gap-12 items-start">
                              <div className="hidden md:block">
                                 <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1674&q=80" alt="Startup Pitching" className="rounded-lg shadow-md object-cover w-full h-full" />
@@ -126,7 +126,7 @@ const Programs: React.FC = () => {
                                     {startupPitchSteps.map((step, index) => <TimelineStep key={index} {...step} />)}
                                 </div>
                                 <div className="mt-10">
-                                    <Link to="/register"><Button variant="gradient">Pitch Your Startup</Button></Link>
+                                    <Link to="/register"><Button variant="primary">Pitch Your Startup</Button></Link>
                                 </div>
                             </div>
                         </div>

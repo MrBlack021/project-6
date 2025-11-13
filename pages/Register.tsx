@@ -5,10 +5,10 @@ import { FadeIn } from '../components/FadeIn';
 
 const FormInput: React.FC<React.InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string }> = ({ label, error, ...props }) => (
     <div>
-        <label htmlFor={props.id} className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">{label}</label>
+        <label htmlFor={props.id} className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">{label}</label>
         <input 
             {...props} 
-            className={`mt-1 block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border ${error ? 'border-red-500' : 'border-light-border dark:border-dark-border'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main`} 
+            className={`block w-full px-4 py-3 bg-light-bg-secondary dark:bg-dark-bg-secondary border ${error ? 'border-red-500' : 'border-light-border dark:border-dark-border'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main`} 
         />
         {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
@@ -16,11 +16,11 @@ const FormInput: React.FC<React.InputHTMLAttributes<HTMLInputElement> & { label:
 
 const FormTextarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; error?: string }> = ({ label, error, ...props }) => (
      <div>
-        <label htmlFor={props.id} className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">{label}</label>
+        <label htmlFor={props.id} className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">{label}</label>
         <textarea 
             {...props}
             rows={3} 
-            className={`mt-1 block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border ${error ? 'border-red-500' : 'border-light-border dark:border-dark-border'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main`} 
+            className={`block w-full px-4 py-3 bg-light-bg-secondary dark:bg-dark-bg-secondary border ${error ? 'border-red-500' : 'border-light-border dark:border-dark-border'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main`} 
         />
         {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
@@ -114,7 +114,7 @@ const Register: React.FC = () => {
         <div className="bg-light-bg-main dark:bg-dark-bg-main py-16 min-h-[80vh] flex items-center">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
-                    <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border rounded-xl shadow-soft overflow-hidden">
+                    <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border rounded-lg shadow-soft dark:shadow-soft-dark overflow-hidden">
                         <form onSubmit={handleFormSubmit} className="p-8 md:p-12" noValidate>
                             <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2 text-center">Register for a Program</h1>
                             <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 text-center">One-time Fee: ₹1,499</p>
@@ -124,13 +124,13 @@ const Register: React.FC = () => {
                                 <FormInput id="email" label="Email Address" type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} error={errors.email} required />
                                 
                                 <div>
-                                    <label htmlFor="program" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Choose Program</label>
-                                    <div className="relative mt-1">
+                                    <label htmlFor="program" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Choose Program</label>
+                                    <div className="relative">
                                         <select 
                                             id="program"
                                             value={formData.program} 
                                             onChange={(e) => setFormData({...formData, program: e.target.value})} 
-                                            className="appearance-none block w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-bg-main dark:bg-dark-bg-main text-light-text-main dark:text-dark-text-main rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary pr-8"
+                                            className="appearance-none block w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-bg-secondary dark:bg-dark-bg-secondary text-light-text-main dark:text-dark-text-main rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary pr-8"
                                         >
                                             <option>AI Agent Builder Challenge</option>
                                             <option>Startup Pitch Support</option>
@@ -146,14 +146,14 @@ const Register: React.FC = () => {
                                      <>
                                         <FormTextarea id="idea" label="Your Startup Idea (Briefly)" value={formData.idea} onChange={(e) => setFormData({...formData, idea: e.target.value})} error={errors.idea} placeholder="Describe your concept in a few sentences." required />
                                         <div>
-                                            <label htmlFor="pitchDeck" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Pitch Deck (Optional)</label>
+                                            <label htmlFor="pitchDeck" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Pitch Deck (Optional)</label>
                                             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-light-border dark:border-dark-border border-dashed rounded-md">
                                                 <div className="space-y-1 text-center">
-                                                    <svg className="mx-auto h-12 w-12 text-light-text-secondary dark:text-dark-text-secondary" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                    <svg className="mx-auto h-12 w-12 text-light-text-secondary/50 dark:text-dark-text-secondary/50" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                     <div className="flex text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                                                        <label htmlFor="pitchDeck" className="relative cursor-pointer bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-md font-medium text-primary hover:text-accent focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-light-bg-main dark:focus-within:ring-offset-dark-bg-main focus-within:ring-primary px-1">
+                                                        <label htmlFor="pitchDeck" className="relative cursor-pointer bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-md font-medium text-primary hover:opacity-80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-light-bg-secondary dark:focus-within:ring-offset-dark-bg-secondary focus-within:ring-primary px-1">
                                                             <span>Upload a file</span>
                                                             <input id="pitchDeck" name="pitchDeck" type="file" className="sr-only" onChange={handleFileChange} accept=".pdf,.doc,.docx,.ppt,.pptx" />
                                                         </label>
@@ -171,7 +171,7 @@ const Register: React.FC = () => {
                                  <div>
                                     <div className="flex items-start">
                                         <div className="flex items-center h-5">
-                                            <input id="terms" name="terms" type="checkbox" checked={formData.terms} onChange={(e) => setFormData({...formData, terms: e.target.checked})} className={`focus:ring-primary h-4 w-4 text-primary bg-light-bg-main dark:bg-dark-bg-main border-light-border dark:border-dark-border rounded ${errors.terms ? 'border-red-500' : ''}`} />
+                                            <input id="terms" name="terms" type="checkbox" checked={formData.terms} onChange={(e) => setFormData({...formData, terms: e.target.checked})} className={`focus:ring-primary h-4 w-4 text-primary bg-light-bg-secondary dark:bg-dark-bg-secondary border-light-border dark:border-dark-border rounded ${errors.terms ? 'border-red-500' : ''}`} />
                                         </div>
                                         <div className="ml-3 text-sm">
                                             <label htmlFor="terms" className="font-medium text-light-text-secondary dark:text-dark-text-secondary">I agree to the <Link to="/terms-and-conditions" className="text-primary hover:underline">Terms and Conditions</Link></label>
@@ -182,7 +182,7 @@ const Register: React.FC = () => {
                             </div>
                             
                             <div className="mt-8">
-                                <Button type="submit" variant="gradient" className="w-full text-lg" disabled={isSubmitting}>
+                                <Button type="submit" variant="primary" className="w-full text-lg" disabled={isSubmitting}>
                                     {isSubmitting ? 'Processing...' : 'Proceed to Pay'}
                                 </Button>
                             </div>

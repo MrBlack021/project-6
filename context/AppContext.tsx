@@ -24,7 +24,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const [registrationData, setRegistrationData] = useState<RegistrationData | null>(null);
     const [theme, setTheme] = useState<Theme>(() => {
         const savedTheme = localStorage.getItem('huntifyy-theme');
-        return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
+        return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'light';
     });
 
     useEffect(() => {

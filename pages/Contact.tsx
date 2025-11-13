@@ -46,31 +46,31 @@ const Contact: React.FC = () => {
                     </header>
                 </FadeIn>
                 <FadeIn>
-                    <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 sm:p-10 rounded-xl shadow-soft">
+                    <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 sm:p-10 rounded-lg shadow-soft dark:shadow-soft-dark">
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Full Name</label>
+                                <label htmlFor="name" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Full Name</label>
                                 <input
                                     type="text" name="name" id="name" value={formData.name} onChange={handleChange} required
-                                    className="mt-1 block w-full px-3 py-2 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
+                                    className="block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Email Address</label>
+                                <label htmlFor="email" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Email Address</label>
                                 <input
                                     type="email" name="email" id="email" value={formData.email} onChange={handleChange} required
-                                    className="mt-1 block w-full px-3 py-2 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
+                                    className="block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Message</label>
+                                <label htmlFor="message" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Message</label>
                                 <textarea
                                     name="message" id="message" rows={4} value={formData.message} onChange={handleChange} required
-                                    className="mt-1 block w-full px-3 py-2 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
+                                    className="block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                                 ></textarea>
                             </div>
                             <div>
-                                <Button type="submit" variant="gradient" className="w-full" disabled={status === 'Sending...'}>
+                                <Button type="submit" variant="primary" className="w-full" disabled={status === 'Sending...'}>
                                     {status === 'Sending...' ? 'Sending...' : 'Send Message'}
                                 </Button>
                             </div>
