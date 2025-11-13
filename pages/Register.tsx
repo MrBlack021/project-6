@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAppContext } from '../context/AppContext';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { FadeIn } from '../components/FadeIn';
 
@@ -27,12 +26,7 @@ const FormTextarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement> &
     </div>
 );
 
-
 const Register: React.FC = () => {
-    const navigate = useNavigate();
-    const { setRegistrationId, setRegistrationData } = useAppContext();
-    
-    const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -84,51 +78,36 @@ const Register: React.FC = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (validate()) {
-            setStep(2);
+        if (!validate()) {
+            return;
         }
-    };
 
-    const handleRedirectToPayment = () => {
-        window.open('https://rzp.io/l/iZa83jT', '_blank', 'noopener,noreferrer');
-        setStep(3);
-    };
-
-    const handlePaymentConfirmation = async () => {
         setIsSubmitting(true);
-        
-        const submissionData = new FormData();
-        submissionData.append('name', formData.name);
-        submissionData.append('email', formData.email);
-        submissionData.append('program', formData.program);
-        submissionData.append('idea', formData.idea);
-        submissionData.append('terms', String(formData.terms));
+
+        const dataToStore: any = { ...formData };
+
+        const proceedToPayment = () => {
+            sessionStorage.setItem('huntifyy-registration-data', JSON.stringify(dataToStore));
+            window.location.href = 'https://rzp.io/l/iZa83jT';
+        };
+
         if (pitchDeck) {
-            submissionData.append('pitchDeck', pitchDeck);
+            const reader = new FileReader();
+            reader.readAsDataURL(pitchDeck);
+            reader.onload = () => {
+                dataToStore.fileData = reader.result;
+                dataToStore.fileName = pitchDeck.name;
+                proceedToPayment();
+            };
+            reader.onerror = () => {
+                setIsSubmitting(false);
+                setErrors(prev => ({...prev, pitchDeck: 'Could not process file. Please try again.'}));
+            };
+        } else {
+            proceedToPayment();
         }
-
-        try {
-            const response = await fetch('/wp-json/huntifyy/v1/register-submission', {
-                method: 'POST',
-                body: submissionData,
-            });
-            if (!response.ok) console.error("Failed to save registration data.");
-        } catch (error) {
-             console.error("Error submitting registration data:", error);
-        }
-
-        const uniqueId = 'HN2025' + Math.floor(100000 + Math.random() * 900000);
-        setRegistrationId(uniqueId);
-        setRegistrationData({
-            name: formData.name,
-            email: formData.email,
-            program: formData.program,
-        });
-        
-        setIsSubmitting(false);
-        navigate('/dashboard');
     };
     
     return (
@@ -136,120 +115,78 @@ const Register: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border rounded-xl shadow-soft overflow-hidden">
-                        {step === 1 && (
-                            <form onSubmit={handleFormSubmit} className="p-8 md:p-12" noValidate>
-                                <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2 text-center">Register for a Program</h1>
-                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 text-center">Start your journey with us today.</p>
+                        <form onSubmit={handleFormSubmit} className="p-8 md:p-12" noValidate>
+                            <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2 text-center">Register for a Program</h1>
+                            <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 text-center">One-time Fee: ₹1,499</p>
 
-                                <div className="space-y-6">
-                                    <FormInput id="name" label="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} error={errors.name} required />
-                                    <FormInput id="email" label="Email Address" type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} error={errors.email} required />
-                                    
-                                    <div>
-                                        <label htmlFor="program" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Choose Program</label>
-                                        <div className="relative mt-1">
-                                            <select 
-                                                id="program"
-                                                value={formData.program} 
-                                                onChange={(e) => setFormData({...formData, program: e.target.value})} 
-                                                className="appearance-none block w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-bg-main dark:bg-dark-bg-main text-light-text-main dark:text-dark-text-main rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary pr-8"
-                                            >
-                                                <option>AI Agent Builder Challenge</option>
-                                                <option>Startup Pitch Support</option>
-                                            </select>
-                                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-light-text-secondary dark:text-dark-text-secondary">
-                                                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                            </div>
+                            <div className="space-y-6">
+                                <FormInput id="name" label="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} error={errors.name} required />
+                                <FormInput id="email" label="Email Address" type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} error={errors.email} required />
+                                
+                                <div>
+                                    <label htmlFor="program" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Choose Program</label>
+                                    <div className="relative mt-1">
+                                        <select 
+                                            id="program"
+                                            value={formData.program} 
+                                            onChange={(e) => setFormData({...formData, program: e.target.value})} 
+                                            className="appearance-none block w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-bg-main dark:bg-dark-bg-main text-light-text-main dark:text-dark-text-main rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary pr-8"
+                                        >
+                                            <option>AI Agent Builder Challenge</option>
+                                            <option>Startup Pitch Support</option>
+                                        </select>
+                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-light-text-secondary dark:text-dark-text-secondary">
+                                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                                         </div>
-                                        <p className="mt-2 text-xs text-light-text-secondary dark:text-dark-text-secondary">{programInfo[formData.program as keyof typeof programInfo]}</p>
                                     </div>
+                                    <p className="mt-2 text-xs text-light-text-secondary dark:text-dark-text-secondary">{programInfo[formData.program as keyof typeof programInfo]}</p>
+                                </div>
 
-                                    {formData.program === 'Startup Pitch Support' && (
-                                         <>
-                                            <FormTextarea id="idea" label="Your Startup Idea (Briefly)" value={formData.idea} onChange={(e) => setFormData({...formData, idea: e.target.value})} error={errors.idea} placeholder="Describe your concept in a few sentences." required />
-                                            <div>
-                                                <label htmlFor="pitchDeck" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Pitch Deck (Optional)</label>
-                                                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-light-border dark:border-dark-border border-dashed rounded-md">
-                                                    <div className="space-y-1 text-center">
-                                                        <svg className="mx-auto h-12 w-12 text-light-text-secondary dark:text-dark-text-secondary" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                        <div className="flex text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                                                            <label htmlFor="pitchDeck" className="relative cursor-pointer bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-md font-medium text-primary hover:text-accent focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-light-bg-main dark:focus-within:ring-offset-dark-bg-main focus-within:ring-primary px-1">
-                                                                <span>Upload a file</span>
-                                                                <input id="pitchDeck" name="pitchDeck" type="file" className="sr-only" onChange={handleFileChange} accept=".pdf,.doc,.docx,.ppt,.pptx" />
-                                                            </label>
-                                                            <p className="pl-1">or drag and drop</p>
-                                                        </div>
-                                                        <p className="text-xs text-gray-500">PDF, DOCX, PPTX up to 10MB</p>
-                                                        {fileName && <p className="text-sm text-green-500 mt-2 truncate max-w-xs mx-auto">{fileName}</p>}
-                                                         {errors.pitchDeck && <p className="text-red-500 text-xs mt-1">{errors.pitchDeck}</p>}
+                                {formData.program === 'Startup Pitch Support' && (
+                                     <>
+                                        <FormTextarea id="idea" label="Your Startup Idea (Briefly)" value={formData.idea} onChange={(e) => setFormData({...formData, idea: e.target.value})} error={errors.idea} placeholder="Describe your concept in a few sentences." required />
+                                        <div>
+                                            <label htmlFor="pitchDeck" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Pitch Deck (Optional)</label>
+                                            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-light-border dark:border-dark-border border-dashed rounded-md">
+                                                <div className="space-y-1 text-center">
+                                                    <svg className="mx-auto h-12 w-12 text-light-text-secondary dark:text-dark-text-secondary" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                    </svg>
+                                                    <div className="flex text-sm text-light-text-secondary dark:text-dark-text-secondary">
+                                                        <label htmlFor="pitchDeck" className="relative cursor-pointer bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-md font-medium text-primary hover:text-accent focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-light-bg-main dark:focus-within:ring-offset-dark-bg-main focus-within:ring-primary px-1">
+                                                            <span>Upload a file</span>
+                                                            <input id="pitchDeck" name="pitchDeck" type="file" className="sr-only" onChange={handleFileChange} accept=".pdf,.doc,.docx,.ppt,.pptx" />
+                                                        </label>
+                                                        <p className="pl-1">or drag and drop</p>
                                                     </div>
+                                                    <p className="text-xs text-gray-500">PDF, DOCX, PPTX up to 10MB</p>
+                                                    {fileName && <p className="text-sm text-green-500 mt-2 truncate max-w-xs mx-auto">{fileName}</p>}
+                                                     {errors.pitchDeck && <p className="text-red-500 text-xs mt-1">{errors.pitchDeck}</p>}
                                                 </div>
                                             </div>
-                                         </>
-                                    )}
-
-                                     <div>
-                                        <div className="flex items-start">
-                                            <div className="flex items-center h-5">
-                                                <input id="terms" name="terms" type="checkbox" checked={formData.terms} onChange={(e) => setFormData({...formData, terms: e.target.checked})} className={`focus:ring-primary h-4 w-4 text-primary bg-light-bg-main dark:bg-dark-bg-main border-light-border dark:border-dark-border rounded ${errors.terms ? 'border-red-500' : ''}`} />
-                                            </div>
-                                            <div className="ml-3 text-sm">
-                                                <label htmlFor="terms" className="font-medium text-light-text-secondary dark:text-dark-text-secondary">I agree to the <Link to="/terms-and-conditions" className="text-primary hover:underline">Terms and Conditions</Link></label>
-                                            </div>
                                         </div>
-                                        {errors.terms && <p className="text-red-500 text-xs mt-1">{errors.terms}</p>}
+                                     </>
+                                )}
+
+                                 <div>
+                                    <div className="flex items-start">
+                                        <div className="flex items-center h-5">
+                                            <input id="terms" name="terms" type="checkbox" checked={formData.terms} onChange={(e) => setFormData({...formData, terms: e.target.checked})} className={`focus:ring-primary h-4 w-4 text-primary bg-light-bg-main dark:bg-dark-bg-main border-light-border dark:border-dark-border rounded ${errors.terms ? 'border-red-500' : ''}`} />
+                                        </div>
+                                        <div className="ml-3 text-sm">
+                                            <label htmlFor="terms" className="font-medium text-light-text-secondary dark:text-dark-text-secondary">I agree to the <Link to="/terms-and-conditions" className="text-primary hover:underline">Terms and Conditions</Link></label>
+                                        </div>
                                     </div>
+                                    {errors.terms && <p className="text-red-500 text-xs mt-1">{errors.terms}</p>}
                                 </div>
-                                
-                                <div className="mt-8">
-                                    <Button type="submit" variant="gradient" className="w-full text-lg">Proceed to Payment</Button>
-                                </div>
-                            </form>
-                        )}
-                        
-                        {step === 2 && (
-                            <div className="p-8 md:p-12 text-center">
-                                <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2">Confirm Registration</h1>
-                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6">You're one step away. Please confirm your details and complete the payment.</p>
-                                
-                                <div className="my-8">
-                                    <span className="text-5xl font-poppins font-bold text-light-text-main dark:text-dark-text-main">₹1,499</span>
-                                    <span className="text-light-text-secondary dark:text-dark-text-secondary"> / one-time fee</span>
-                                </div>
-
-                                <div className="text-left my-8 mx-auto max-w-sm bg-light-bg-main dark:bg-dark-bg-main p-4 rounded-md border border-light-border dark:border-dark-border">
-                                    <h3 className="text-lg font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4 text-center">Order Summary</h3>
-                                    <p className="text-light-text-secondary dark:text-dark-text-secondary"><span className="font-semibold text-light-text-main dark:text-dark-text-main">Name:</span> {formData.name}</p>
-                                    <p className="text-light-text-secondary dark:text-dark-text-secondary"><span className="font-semibold text-light-text-main dark:text-dark-text-main">Email:</span> {formData.email}</p>
-                                    <p className="text-light-text-secondary dark:text-dark-text-secondary"><span className="font-semibold text-light-text-main dark:text-dark-text-main">Program:</span> {formData.program}</p>
-                                    {fileName && <p className="text-light-text-secondary dark:text-dark-text-secondary truncate"><span className="font-semibold text-light-text-main dark:text-dark-text-main">Attachment:</span> {fileName}</p>}
-                                </div>
-
-                                <Button onClick={handleRedirectToPayment} variant="gradient" className="w-full text-lg" disabled={isSubmitting}>
-                                    Pay with Razorpay
-                                </Button>
-                                <button onClick={() => setStep(1)} className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-4 hover:underline">Go Back</button>
                             </div>
-                        )}
-
-                        {step === 3 && (
-                            <div className="p-8 md:p-12 text-center">
-                                <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2">Complete Your Payment</h1>
-                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8">The payment page has opened in a new tab. Once you've completed the payment, please click the button below to confirm your registration.</p>
-                                
-                                <svg className="mx-auto h-16 w-16 text-primary animate-spin mb-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                
-                                <Button onClick={handlePaymentConfirmation} variant="gradient" className="w-full text-lg" disabled={isSubmitting}>
-                                    {isSubmitting ? 'Confirming...' : 'I Have Paid & Confirm Registration'}
+                            
+                            <div className="mt-8">
+                                <Button type="submit" variant="gradient" className="w-full text-lg" disabled={isSubmitting}>
+                                    {isSubmitting ? 'Processing...' : 'Proceed to Pay'}
                                 </Button>
-                                <button onClick={() => setStep(2)} className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-4 hover:underline">Go Back</button>
                             </div>
-                        )}
+                        </form>
                     </div>
                 </FadeIn>
             </div>

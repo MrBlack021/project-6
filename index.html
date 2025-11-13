@@ -66,6 +66,20 @@
                         'soft': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
                         'glow-primary': '0 0 25px rgba(255, 26, 142, 0.4)',
                     },
+                    animation: {
+                        'scanline': 'scanline 4s linear infinite',
+                        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'scanline': {
+                            '0%': { transform: 'translateY(-10%)' },
+                            '100%': { transform: 'translateY(110%)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 25px rgba(255, 26, 142, 0.2)' },
+                            '50%': { boxShadow: '0 0 45px rgba(255, 26, 142, 0.5)' },
+                        }
+                    }
                 }
             }
         }

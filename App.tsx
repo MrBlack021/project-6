@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import { CursorLight } from './components/CursorLight';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 
 const ScrollToTop: React.FC = () => {
@@ -53,6 +54,7 @@ const ThemedApp: React.FC = () => {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                         <Route path="/terms-and-conditions" element={<Terms />} />
+                        <Route path="/payment-success" element={<PaymentSuccess />} />
                     </Routes>
                 </main>
                 <Footer />
