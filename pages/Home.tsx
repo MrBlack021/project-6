@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
@@ -23,7 +22,7 @@ const ParallaxHero: React.FC = () => (
             </FadeIn>
             <FadeIn delay="duration-[1200ms]">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <Link to="/programs"><Button>Enter AI Challenge</Button></Link>
+                    <Link to="/platform"><Button>Enter AI Challenge</Button></Link>
                     <Link to="/register"><Button variant="secondary">Pitch Your Startup</Button></Link>
                 </div>
             </FadeIn>

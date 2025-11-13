@@ -41,8 +41,8 @@ const Header: React.FC = () => {
                     </nav>
 
                     <div className='hidden md:block'>
-                         <Link to="/register">
-                            <Button className='px-6 py-2'>Register</Button>
+                         <Link to="/platform">
+                            <Button className='px-6 py-2'>Launch Platform</Button>
                         </Link>
                     </div>
 
@@ -71,8 +71,8 @@ const Header: React.FC = () => {
                                 {link.name}
                             </NavLink>
                         ))}
-                         <Link to="/register" onClick={() => setIsMenuOpen(false)}>
-                            <Button className='mt-4'>Register</Button>
+                         <Link to="/platform" onClick={() => setIsMenuOpen(false)}>
+                            <Button className='mt-4'>Launch Platform</Button>
                         </Link>
                     </nav>
                 </div>

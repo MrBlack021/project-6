@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FadeIn } from '../components/FadeIn';
@@ -30,6 +31,7 @@ const Programs: React.FC = () => {
     const startupPitchSteps = [
         { number: 1, title: 'Idea Submission', description: 'Submit your startup idea through our portal with a brief overview of your concept and market.' },
         { number: 2, title: 'Pitch Deck Refinement', description: 'Work with our mentors to craft a compelling pitch deck that highlights your vision and value proposition.' },
+        // Fix: Corrected object property from `'Presentation Coaching'` to `title: 'Presentation Coaching'` to match the component's expected props.
         { number: 3, title: 'Presentation Coaching', description: 'Receive one-on-one coaching to perfect your delivery, storytelling, and Q&A handling skills.' },
         { number: 4, title: 'Investor Connect', description: 'Pitch your polished idea to our network of angel investors and venture capitalists on Demo Day.' },
     ];
@@ -74,7 +76,7 @@ const Programs: React.FC = () => {
                                 </div>
 
                                 <div className="mt-10">
-                                   <Link to="/register"><Button>Enter the Competition</Button></Link>
+                                   <Link to="/platform"><Button>Enter the Competition</Button></Link>
                                 </div>
                             </div>
                             <div className="hidden md:block">
