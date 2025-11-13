@@ -48,7 +48,7 @@ const Programs: React.FC = () => {
                 </FadeIn>
 
                 <FadeIn>
-                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-xl shadow-soft">
+                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-xl shadow-soft mb-16">
                         <div className="grid md:grid-cols-2 gap-12 items-start">
                             <div>
                                 <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">AI Challenge: A Talent Pipeline</h2>
@@ -107,7 +107,7 @@ const Programs: React.FC = () => {
                             </div>
                             <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-6 rounded-xl border border-light-border dark:border-dark-border text-center w-full md:w-1/3">
                                 <h3 className="font-poppins font-bold text-accent">Validated Ideas</h3>
-                                <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-2">Curated startups, mentored and de-risked for growth.</p>
+                                <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-2">Curated startups from all sectors, mentored for growth.</p>
                             </div>
                         </div>
                     </div>
@@ -120,8 +120,8 @@ const Programs: React.FC = () => {
                                 <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1674&q=80" alt="Startup Pitching" className="rounded-lg shadow-md object-cover w-full h-full" />
                             </div>
                             <div>
-                                <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-8">Startup Support: A Curated Deal-Flow</h2>
-                                 <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 -mt-4">Our Startup Support program is a curated deal-flow pipeline. We de-risk early-stage ventures by sourcing promising ideas, providing intensive mentorship, and validating concepts before they ever reach an investor's desk. We build fundable companies, not just pitch decks.</p>
+                                <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-8">Startup Support: Your Idea, Any Sector</h2>
+                                 <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 -mt-4">Our Startup Support program is a curated deal-flow pipeline for visionary founders across all industries. While we have deep expertise in AI, we welcome groundbreaking ideas from any sector. We de-risk ventures by providing intensive mentorship and validating concepts before they reach an investor's desk.</p>
                                 <div className="space-y-8">
                                     {startupPitchSteps.map((step, index) => <TimelineStep key={index} {...step} />)}
                                 </div>

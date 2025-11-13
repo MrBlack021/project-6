@@ -94,7 +94,7 @@ const ProgramsSection: React.FC = () => (
                                <StartupIcon className="w-8 h-8"/>
                             </div>
                             <h3 className="text-2xl font-poppins font-bold mb-4">Startup Pitch Support</h3>
-                            <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6">Have a revolutionary startup idea? We connect promising concepts to our network of investors and support your venture.</p>
+                            <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6">Have a revolutionary idea in any sector? We connect promising concepts—from AI to FinTech to HealthTech—to our network of investors and support your venture.</p>
                              <Link to="/programs" className="font-semibold text-primary group-hover:text-accent transition-colors group">
                                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">Learn More &rarr;</span>
                             </Link>

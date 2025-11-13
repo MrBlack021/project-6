@@ -47,7 +47,7 @@ const Register: React.FC = () => {
 
     const programInfo = {
         'AI Agent Builder Challenge': 'A 30-day competition to build, train, and deploy AI agents. Perfect for developers looking to prove their skills.',
-        'Startup Pitch Support': 'Get mentorship, refine your pitch deck, and connect with investors. Ideal for entrepreneurs with a vision.'
+        'Startup Pitch Support': 'For visionary founders in any sector (AI, FinTech, SaaS, etc.). Get mentorship, refine your pitch, and connect with investors.'
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +91,12 @@ const Register: React.FC = () => {
         }
     };
 
-    const handlePayment = async () => {
+    const handleRedirectToPayment = () => {
+        window.open('https://rzp.io/l/iZa83jT', '_blank', 'noopener,noreferrer');
+        setStep(3);
+    };
+
+    const handlePaymentConfirmation = async () => {
         setIsSubmitting(true);
         
         const submissionData = new FormData();
@@ -222,10 +227,27 @@ const Register: React.FC = () => {
                                     {fileName && <p className="text-light-text-secondary dark:text-dark-text-secondary truncate"><span className="font-semibold text-light-text-main dark:text-dark-text-main">Attachment:</span> {fileName}</p>}
                                 </div>
 
-                                <Button onClick={handlePayment} variant="gradient" className="w-full text-lg" disabled={isSubmitting}>
-                                    {isSubmitting ? 'Processing...' : 'Pay with Razorpay (Simulated)'}
+                                <Button onClick={handleRedirectToPayment} variant="gradient" className="w-full text-lg" disabled={isSubmitting}>
+                                    Pay with Razorpay
                                 </Button>
                                 <button onClick={() => setStep(1)} className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-4 hover:underline">Go Back</button>
+                            </div>
+                        )}
+
+                        {step === 3 && (
+                            <div className="p-8 md:p-12 text-center">
+                                <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2">Complete Your Payment</h1>
+                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8">The payment page has opened in a new tab. Once you've completed the payment, please click the button below to confirm your registration.</p>
+                                
+                                <svg className="mx-auto h-16 w-16 text-primary animate-spin mb-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                
+                                <Button onClick={handlePaymentConfirmation} variant="gradient" className="w-full text-lg" disabled={isSubmitting}>
+                                    {isSubmitting ? 'Confirming...' : 'I Have Paid & Confirm Registration'}
+                                </Button>
+                                <button onClick={() => setStep(2)} className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-4 hover:underline">Go Back</button>
                             </div>
                         )}
                     </div>

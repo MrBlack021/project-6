@@ -15,6 +15,10 @@ const faqs = [
         answer: "You should have a clear idea for a startup. A basic business plan or a simple presentation is helpful, but not required. The most important thing is a passion for your idea and a vision for its potential."
     },
     {
+        question: "Does my startup idea have to be related to AI?",
+        answer: "Not at all. While our AI Challenge is tech-focused, our Startup Pitch Support program is open to innovative ideas from all sectors. We are looking for visionary founders with groundbreaking concepts, regardless of the industry."
+    },
+    {
         question: "What happens after I submit my startup idea?",
         answer: "Our expert panel reviews every submission. The most promising ideas are presented directly to our network of investors. If your idea gains traction, we provide dedicated support, mentorship, and resources to help you build and launch your startup."
     },
