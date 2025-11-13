@@ -1,4 +1,3 @@
-
 # Huntifyy React App to WordPress Theme Conversion Guide
 
 This project has been restructured to work as a WordPress theme. To get it running on your WordPress site, please follow these steps carefully.
@@ -64,39 +63,33 @@ To make your site fully functional, secure, and fast, install these plugins from
     1.  Install and activate the **WPForms** plugin.
     2.  Go to `WPForms` -> `Add New`.
     3.  Create a form named `Contact Form`.
-    4.  Add three fields:
-        *   `Name` (Single Line Text)
-        *   `Email` (Email)
-        *   `Message` (Paragraph Text)
-    5.  Click `Save`. Look at the URL in your browser's address bar to find the **Form ID**. It will be a number, for example `.../wp-admin/admin.php?page=wpforms-builder&view=fields&form_id=123`. **Your Form ID is `123`**.
-    6.  In the form builder, click on each field and look at the `Field Options` on the left. Note the **Field ID** for each (usually 1, 2, 3).
+    4.  Add three fields: `Name`, `Email`, `Message`.
+    5.  Click `Save`. Note the **Form ID** from the URL and the **Field ID** for each field.
 
     **Step B: Create the Registration Form**
     1.  Go to `WPForms` -> `Add New`.
     2.  Create a form named `Registration Form`.
-    3.  Add four fields: `Name`, `Email`, `Program` (Dropdown), and `Startup Idea` (Paragraph Text).
-    4.  Save the form and note its **Form ID** and the **Field IDs**.
+    3.  Add the following fields: `Name`, `Email`, `Program` (Dropdown), `Startup Idea` (Paragraph Text), and **`Pitch Deck` (File Upload)**.
+    4.  For the **File Upload** field, you may want to configure allowed file extensions (e.g., pdf, docx, pptx) and a maximum file size in the field's advanced options.
+    5.  Save the form and note its **Form ID** and the **Field ID for each field**, including the new File Upload field.
 
     **Step C: Update `functions.php`**
     1.  In WordPress, go to `Appearance` -> `Theme File Editor`.
     2.  Select your `Huntifyy Theme` and open the `functions.php` file.
     3.  Find the `huntifyy_handle_contact_submission` and `huntifyy_handle_register_submission` functions.
-    4.  **Crucially, replace the placeholder Form IDs and Field IDs with your own.** The code comments will guide you.
+    4.  **Crucially, replace the placeholder Form IDs and Field IDs with your own.** The code comments will guide you. You will need to map the Field ID for your new 'Pitch Deck' field.
 
 ### 2. SEO: **Yoast SEO** or **Rank Math** (Highly Recommended)
 
 *   **Why:** To optimize your site for search engines like Google. Control page titles, meta descriptions, and social sharing info.
-*   **How to integrate:**
-    1.  Install and activate your chosen SEO plugin.
-    2.  Follow the plugin's setup wizard to configure site-wide settings.
-    3.  Because this is a Single Page Application (SPA), the plugin's main impact will be on how your **homepage** appears in search results. The settings you apply will affect the initial page load of your React application.
+*   **How to integrate:** Install, activate, and follow the plugin's setup wizard.
 
 ### 3. Security: **Wordfence Security** (Essential)
 
 *   **Why:** To protect your website from malware, brute-force login attempts, and other common security threats.
-*   **How to integrate:** No code changes needed. Install, activate, and follow the on-screen instructions to configure the firewall and security scans. This is a standard best practice for any WordPress site.
+*   **How to integrate:** Install, activate, and follow the on-screen instructions to configure the firewall and security scans.
 
 ### 4. Caching: **W3 Total Cache** or **WP Super Cache** (Highly Recommended)
 
-*   **Why:** To make your website load significantly faster for visitors. This improves user experience and can boost SEO rankings.
-*   **How to integrate:** No code changes needed. Install, activate, and follow the plugin's recommended settings for page caching and browser caching. This will speed up the initial load time of your React app.
+*   **Why:** To make your website load significantly faster for visitors.
+*   **How to integrate:** Install, activate, and follow the plugin's recommended settings for page caching and browser caching.

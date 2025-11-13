@@ -35,38 +35,38 @@ const Contact: React.FC = () => {
     };
 
     return (
-        <div className="bg-bg-main py-16">
+        <div className="bg-light-bg-main dark:bg-dark-bg-main py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <header className="text-center mb-12">
-                        <h1 className="text-4xl font-poppins font-bold text-text-main mb-4">Get In Touch</h1>
-                        <p className="text-lg text-text-secondary max-w-2xl mx-auto">
+                        <h1 className="text-4xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">Get In Touch</h1>
+                        <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
                             Have a question or proposal? We'd love to hear from you.
                         </p>
                     </header>
                 </FadeIn>
                 <FadeIn>
-                    <div className="max-w-2xl mx-auto bg-bg-secondary border border-gray-800 p-8 sm:p-10 rounded-xl shadow-soft">
+                    <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 sm:p-10 rounded-xl shadow-soft">
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-text-secondary">Full Name</label>
+                                <label htmlFor="name" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Full Name</label>
                                 <input
                                     type="text" name="name" id="name" value={formData.name} onChange={handleChange} required
-                                    className="mt-1 block w-full px-3 py-2 bg-bg-main border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-text-main"
+                                    className="mt-1 block w-full px-3 py-2 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-text-secondary">Email Address</label>
+                                <label htmlFor="email" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Email Address</label>
                                 <input
                                     type="email" name="email" id="email" value={formData.email} onChange={handleChange} required
-                                    className="mt-1 block w-full px-3 py-2 bg-bg-main border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-text-main"
+                                    className="mt-1 block w-full px-3 py-2 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-text-secondary">Message</label>
+                                <label htmlFor="message" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary">Message</label>
                                 <textarea
                                     name="message" id="message" rows={4} value={formData.message} onChange={handleChange} required
-                                    className="mt-1 block w-full px-3 py-2 bg-bg-main border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-text-main"
+                                    className="mt-1 block w-full px-3 py-2 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                                 ></textarea>
                             </div>
                             <div>

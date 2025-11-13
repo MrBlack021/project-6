@@ -41,13 +41,21 @@ const testimonials = [
 ];
 
 const TestimonialCard: React.FC<typeof testimonials[0]> = ({ quote, name, location, image }) => (
-    <div className="bg-bg-secondary p-8 rounded-xl border border-gray-800 h-full flex flex-col transition-transform duration-300 hover:-translate-y-1">
-        <p className="text-text-secondary italic mb-6 flex-grow">"{quote}"</p>
-        <div className="flex items-center mt-auto">
-            <img src={image} alt={name} className="w-14 h-14 rounded-full mr-4 object-cover" />
-            <div>
-                <p className="font-bold text-text-main text-lg">{name}</p>
-                <p className="text-text-secondary">{location}</p>
+    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-xl border border-light-border dark:border-dark-border h-full flex flex-col relative group overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl"></div>
+        <div className="absolute inset-0 border border-light-border dark:border-dark-border rounded-xl group-hover:border-primary/50 transition-colors duration-300"></div>
+        
+        <div className="relative z-10">
+            <span className="absolute -top-4 -left-4 text-8xl font-poppins font-bold text-black/5 dark:text-white/5">“</span>
+            <p className="text-light-text-secondary dark:text-dark-text-secondary italic mb-6 flex-grow z-10 relative">
+                {quote}
+            </p>
+            <div className="flex items-center mt-auto">
+                <img src={image} alt={name} className="w-14 h-14 rounded-full mr-4 object-cover" />
+                <div>
+                    <p className="font-bold text-light-text-main dark:text-dark-text-main text-lg">{name}</p>
+                    <p className="text-light-text-secondary dark:text-dark-text-secondary">{location}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -55,12 +63,12 @@ const TestimonialCard: React.FC<typeof testimonials[0]> = ({ quote, name, locati
 
 const Testimonials: React.FC = () => {
     return (
-        <div className="bg-bg-main py-16">
+        <div className="bg-light-bg-main dark:bg-dark-bg-main py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <header className="text-center mb-16">
-                        <h1 className="text-4xl font-poppins font-bold text-text-main mb-4">What Our Participants Say</h1>
-                        <p className="text-lg text-text-secondary max-w-3xl mx-auto">
+                        <h1 className="text-4xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">What Our Participants Say</h1>
+                        <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto">
                             Real stories from developers and entrepreneurs who started their journey with us.
                         </p>
                     </header>

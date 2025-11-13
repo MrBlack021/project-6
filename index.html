@@ -9,34 +9,62 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        .aurora-bg {
+            background: radial-gradient(50% 50% at 50% 50%, rgba(255, 26, 142, 0.2) 0%, rgba(28, 28, 44, 0) 100%);
+            animation: aurora 10s ease-in-out infinite alternate;
+        }
+        @keyframes aurora {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            100% { transform: scale(1.5) rotate(90deg); opacity: 1; }
+        }
+        .cursor-light {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 26, 142, 0.08) 0%, rgba(255, 26, 142, 0) 60%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s, background 0.3s;
+            z-index: 9999;
+        }
+        body:hover .cursor-light {
+            opacity: 1;
+        }
+    </style>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        'primary': '#00A9FF',
-                        'accent': '#00E0C7',
-                        'bg-main': '#0a0a0a',
-                        'bg-secondary': '#1a1a1a',
-                        'text-main': '#e0e0e0',
-                        'text-secondary': '#a0a0a0',
+                        'primary': '#FF1A8E', // Magenta
+                        'accent': '#00E0C7', // Teal
+                        'light': {
+                            'bg-main': '#FFFFFF',
+                            'bg-secondary': '#F5F7FA',
+                            'text-main': '#1a1a2e',
+                            'text-secondary': '#5c5c7a',
+                            'border': '#e5e7eb',
+                        },
+                        'dark': {
+                            'bg-main': '#05050a',
+                            'bg-secondary': '#111118',
+                            'text-main': '#f0f0f0',
+                            'text-secondary': '#a0a0b0',
+                            'border': 'rgba(255, 255, 255, 0.1)',
+                        }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         poppins: ['Poppins', 'sans-serif'],
                     },
                     boxShadow: {
-                        'soft': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                        'glow-primary': '0 0 20px rgba(0, 169, 255, 0.3)',
-                    },
-                    animation: {
-                        'gradient-bg': 'gradient-bg 15s ease infinite',
-                    },
-                    keyframes: {
-                        'gradient-bg': {
-                            '0%, 100%': { backgroundPosition: '0% 50%' },
-                            '50%': { backgroundPosition: '100% 50%' },
-                        },
+                        'soft': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                        'glow-primary': '0 0 25px rgba(255, 26, 142, 0.4)',
                     },
                 }
             }
@@ -53,7 +81,7 @@
 }
 </script>
 </head>
-<body class="bg-bg-main text-text-main font-sans">
+<body class="bg-light-bg-main text-light-text-main font-sans overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>

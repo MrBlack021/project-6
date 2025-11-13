@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from './useInView';
 
-// Update the return type to reflect the new object structure
-export const useCountUp = (target: number, duration: number = 2000) => {
-    const [count, setCount] = useState(0);
+export const useCountUp = (target: number, duration: number = 2000, startValue: number = 0) => {
+    const [count, setCount] = useState(startValue);
     const { ref, isInView } = useInView({ threshold: 0.5 });
     const animationFrameId = useRef<number | null>(null);
 
     useEffect(() => {
         if (isInView) {
             let start: number | null = null;
+            const range = target - startValue;
+
             const step = (timestamp: number) => {
                 if (!start) start = timestamp;
                 const progress = Math.min((timestamp - start) / duration, 1);
-                setCount(Math.floor(progress * target));
+                setCount(Math.floor(progress * range + startValue));
                 if (progress < 1) {
                     animationFrameId.current = requestAnimationFrame(step);
                 }
@@ -26,8 +27,7 @@ export const useCountUp = (target: number, duration: number = 2000) => {
                 cancelAnimationFrame(animationFrameId.current);
             }
         };
-    }, [isInView, target, duration]);
+    }, [isInView, target, duration, startValue]);
 
-    // Return an object with the count and the ref to be attached to the component
     return { count, ref };
 };

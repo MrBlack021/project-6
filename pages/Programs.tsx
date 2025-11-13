@@ -9,23 +9,23 @@ const TimelineStep: React.FC<{ icon: React.ReactNode; title: string; description
     
     return (
         <div ref={ref} className="relative flex items-start">
-            <div className={`flex-shrink-0 w-12 h-12 rounded-full bg-bg-secondary border-2 border-primary/50 text-primary flex items-center justify-center z-10 transition-transform duration-500 ${isInView ? 'scale-100' : 'scale-0'}`}>
+            <div className={`flex-shrink-0 w-12 h-12 rounded-full bg-light-bg-secondary dark:bg-dark-bg-secondary border-2 border-primary/50 text-primary flex items-center justify-center z-10 transition-all duration-500 ${isInView ? 'scale-100 border-primary' : 'scale-0'}`}>
                 {icon}
             </div>
-            {!isLast && <div className={`absolute top-12 left-6 h-full w-0.5 bg-gray-800 transition-transform duration-500 delay-200 origin-top ${isInView ? 'scale-y-100' : 'scale-y-0'}`}></div>}
-            <div className={`ml-6 transition-opacity duration-500 delay-300 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
-                <h4 className="text-xl font-poppins font-bold text-text-main mb-1">{title}</h4>
-                <p className="text-text-secondary">{description}</p>
+            {!isLast && <div className={`absolute top-12 left-6 h-full w-0.5 bg-light-border dark:bg-dark-border transition-transform duration-500 delay-200 origin-top ${isInView ? 'scale-y-100' : 'scale-y-0'}`}></div>}
+            <div className={`ml-6 transition-all duration-500 delay-300 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
+                <h4 className="text-xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-1">{title}</h4>
+                <p className="text-light-text-secondary dark:text-dark-text-secondary">{description}</p>
             </div>
         </div>
     );
 };
 
 const CurriculumWeek: React.FC<{ week: number; title: string; description: string; project: string }> = ({ week, title, description, project }) => (
-    <div className="py-4 border-b border-gray-800 last:border-b-0">
+    <div className="py-4 border-b border-light-border dark:border-dark-border last:border-b-0">
         <h4 className="font-poppins font-bold text-lg text-primary">Week {week}: {title}</h4>
-        <p className="text-text-secondary mt-1">{description}</p>
-        <p className="text-sm text-text-main mt-2"><strong className="text-text-secondary">Mini-Project:</strong> {project}</p>
+        <p className="text-light-text-secondary dark:text-dark-text-secondary mt-1">{description}</p>
+        <p className="text-sm text-light-text-main dark:text-dark-text-main mt-2"><strong className="text-light-text-secondary dark:text-dark-text-secondary">Mini-Project:</strong> {project}</p>
     </div>
 );
 
@@ -40,19 +40,19 @@ const Programs: React.FC = () => {
     ];
 
     return (
-        <div className="bg-bg-main py-16">
+        <div className="bg-light-bg-main dark:bg-dark-bg-main py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <h1 className="text-4xl font-poppins font-bold text-center mb-4">Our Programs</h1>
-                    <p className="text-lg text-text-secondary text-center max-w-3xl mx-auto mb-16">We offer structured programs to guide you from concept to creation, whether you're building an AI or a company.</p>
+                    <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary text-center max-w-3xl mx-auto mb-16">An integrated approach to cultivating talent and building high-growth ventures.</p>
                 </FadeIn>
 
                 <FadeIn>
-                    <div className="bg-bg-secondary border border-gray-800 p-8 md:p-12 rounded-xl shadow-soft mb-16">
+                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-xl shadow-soft">
                         <div className="grid md:grid-cols-2 gap-12 items-start">
                             <div>
-                                <h2 className="text-3xl font-poppins font-bold text-text-main mb-4">AI Agent Builder Challenge</h2>
-                                <p className="text-text-secondary mb-6">This 30-day hands-on competition is your express lane to becoming a recognized AI developer. Compete against the best, build a portfolio piece that stands out, and win from a prize pool of up to ₹5 Lakhs.</p>
+                                <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">AI Challenge: A Talent Pipeline</h2>
+                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6">More than a competition, our AI Challenge is a high-fidelity talent vetting process. We identify and cultivate elite AI developers through practical, high-pressure challenges, producing graduates who are not just skilled, but proven innovators ready to build.</p>
                                 <div className="my-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r-lg">
                                     <p className="font-bold text-primary">🏆 Prize Pool: ₹5,000 to ₹5,00,000 for top performers!</p>
                                 </div>
@@ -64,18 +64,18 @@ const Programs: React.FC = () => {
                                 </button>
 
                                 <div className={`transition-all duration-700 ease-in-out overflow-hidden ${isDetailsVisible ? 'max-h-[1500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                                    <div className="space-y-4 pt-4 border-t border-gray-800">
+                                    <div className="space-y-4 pt-4 border-t border-light-border dark:border-dark-border">
                                         <div>
-                                            <h3 className="font-poppins font-bold text-xl mb-2 text-text-main">Phase 1: 20-Day Learning & Practice</h3>
-                                            <p className="text-text-secondary mb-4">The first 20 days are an intensive, structured curriculum covering everything from AI fundamentals to advanced agent deployment. Each week includes daily practices, hands-on labs, and a mini-project to solidify your skills.</p>
+                                            <h3 className="font-poppins font-bold text-xl mb-2 text-light-text-main dark:text-dark-text-main">Phase 1: 20-Day Learning & Practice</h3>
+                                            <p className="text-light-text-secondary dark:text-dark-text-secondary mb-4">The first 20 days are an intensive, structured curriculum covering everything from AI fundamentals to advanced agent deployment. Each week includes daily practices, hands-on labs, and a mini-project to solidify your skills.</p>
                                             <CurriculumWeek week={1} title="AI Fundamentals & Python Brush-up" description="Get introduced to core AI concepts, set up your development environment, and master Python libraries essential for AI/ML." project="A simple recommendation script." />
                                             <CurriculumWeek week={2} title="Machine Learning & Data Handling" description="Explore supervised/unsupervised learning, preprocess data with Pandas, and build your first models with Scikit-learn." project="A customer segmentation model." />
                                             <CurriculumWeek week={3} title="Deep Learning & APIs" description="Dive into neural networks with TensorFlow/PyTorch and learn to build and integrate REST APIs for your models." project="An image classifier with a simple API." />
                                             <CurriculumWeek week={4} title="Advanced Agent Logic & Deployment" description="Master state management, long-term memory for agents, and deploy your creations to a cloud environment." project="A conversational chatbot agent." />
                                         </div>
                                          <div>
-                                            <h3 className="font-poppins font-bold text-xl mb-2 text-text-main">Phase 2: 10-Day Grand Challenge</h3>
-                                            <p className="text-text-secondary">The final 10 days are the ultimate test. You'll tackle two complex, real-world tasks where your agents will be judged on efficiency, accuracy, and innovation. This is your chance to shine and win from the prize pool!</p>
+                                            <h3 className="font-poppins font-bold text-xl mb-2 text-light-text-main dark:text-dark-text-main">Phase 2: 10-Day Grand Challenge</h3>
+                                            <p className="text-light-text-secondary dark:text-dark-text-secondary">The final 10 days are the ultimate test. You'll tackle two complex, real-world tasks where your agents will be judged on efficiency, accuracy, and innovation. This is your chance to shine and win from the prize pool!</p>
                                         </div>
                                     </div>
                                 </div>
@@ -90,15 +90,38 @@ const Programs: React.FC = () => {
                         </div>
                     </div>
                 </FadeIn>
+                
+                <FadeIn>
+                    <div className="py-16 text-center">
+                        <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">A Symbiotic Ecosystem</h2>
+                        <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto mb-12">
+                            Our programs are not isolated silos. They are two halves of a powerful innovation engine, creating a unique flywheel effect that mitigates risk and maximizes potential for investors.
+                        </p>
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
+                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-6 rounded-xl border border-light-border dark:border-dark-border text-center w-full md:w-1/3">
+                                <h3 className="font-poppins font-bold text-primary">Proven Talent</h3>
+                                <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-2">AI Challenge graduates with validated, practical skills.</p>
+                            </div>
+                            <div className="text-4xl text-primary transform md:-rotate-0 rotate-90 mx-8 my-4 md:my-0">
+                                &harr;
+                            </div>
+                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-6 rounded-xl border border-light-border dark:border-dark-border text-center w-full md:w-1/3">
+                                <h3 className="font-poppins font-bold text-accent">Validated Ideas</h3>
+                                <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-2">Curated startups, mentored and de-risked for growth.</p>
+                            </div>
+                        </div>
+                    </div>
+                </FadeIn>
 
                 <FadeIn>
-                    <div className="bg-bg-secondary border border-gray-800 p-8 md:p-12 rounded-xl shadow-soft">
+                    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-xl shadow-soft">
                         <div className="grid md:grid-cols-2 gap-12 items-start">
                              <div className="hidden md:block">
                                 <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1674&q=80" alt="Startup Pitching" className="rounded-lg shadow-md object-cover w-full h-full" />
                             </div>
                             <div>
-                                <h2 className="text-3xl font-poppins font-bold text-text-main mb-8">Startup Pitch Support</h2>
+                                <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-8">Startup Support: A Curated Deal-Flow</h2>
+                                 <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 -mt-4">Our Startup Support program is a curated deal-flow pipeline. We de-risk early-stage ventures by sourcing promising ideas, providing intensive mentorship, and validating concepts before they ever reach an investor's desk. We build fundable companies, not just pitch decks.</p>
                                 <div className="space-y-8">
                                     {startupPitchSteps.map((step, index) => <TimelineStep key={index} {...step} />)}
                                 </div>

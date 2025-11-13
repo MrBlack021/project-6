@@ -35,19 +35,19 @@ const faqs = [
 const AccordionItem: React.FC<{ q: string; a: string; }> = ({ q, a }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div className="border-b border-gray-800">
+        <div className="border-b border-light-border dark:border-dark-border">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex justify-between items-center text-left py-4 px-2"
             >
-                <span className="text-lg font-semibold text-text-main">{q}</span>
+                <span className="text-lg font-semibold text-light-text-main dark:text-dark-text-main">{q}</span>
                 <span className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
                     <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </button>
             <div className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
                 <div className="overflow-hidden">
-                    <p className="p-4 pt-0 text-text-secondary">{a}</p>
+                    <p className="p-4 pt-0 text-light-text-secondary dark:text-dark-text-secondary">{a}</p>
                 </div>
             </div>
         </div>
@@ -56,18 +56,18 @@ const AccordionItem: React.FC<{ q: string; a: string; }> = ({ q, a }) => {
 
 const FAQ: React.FC = () => {
     return (
-        <div className="bg-bg-main py-16">
+        <div className="bg-light-bg-main dark:bg-dark-bg-main py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <header className="text-center mb-12">
-                        <h1 className="text-4xl font-poppins font-bold text-text-main mb-4">Frequently Asked Questions</h1>
-                        <p className="text-lg text-text-secondary max-w-2xl mx-auto">
+                        <h1 className="text-4xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">Frequently Asked Questions</h1>
+                        <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
                             Have questions? We've got answers. If you don't see your question here, feel free to reach out.
                         </p>
                     </header>
                 </FadeIn>
                 <FadeIn>
-                    <div className="max-w-3xl mx-auto bg-bg-secondary border border-gray-800 p-4 sm:p-6 rounded-xl shadow-soft">
+                    <div className="max-w-3xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-4 sm:p-6 rounded-xl shadow-soft">
                         {faqs.map((faq, index) => (
                             <AccordionItem key={index} q={faq.question} a={faq.answer} />
                         ))}

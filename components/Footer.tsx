@@ -4,14 +4,14 @@ import { LogoIcon } from './LogoIcon';
 import Button from './Button';
 
 const SocialIcon: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-primary transition-all duration-300 transform hover:scale-110">
+    <a href={href} target="_blank" rel="noopener noreferrer" className="text-light-text-secondary dark:text-dark-text-secondary hover:text-primary transition-all duration-300 transform hover:scale-110">
         {children}
     </a>
 );
 
 const FooterLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
     <li>
-        <Link to={to} className="text-text-secondary hover:text-white transition-colors duration-300 text-sm">{children}</Link>
+        <Link to={to} className="text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text-main dark:hover:text-dark-text-main transition-colors duration-300 text-sm">{children}</Link>
     </li>
 );
 
@@ -19,17 +19,17 @@ const Footer: React.FC = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-bg-main relative pt-1">
+        <footer className="bg-light-bg-main dark:bg-dark-bg-main relative pt-1">
             {/* Top Gradient Border */}
             <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-accent opacity-50"></div>
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 {/* CTA Section */}
-                <div className="py-12 md:py-16 text-center border-b border-gray-800">
-                    <h2 className="text-3xl md:text-4xl font-poppins font-bold text-text-main mb-4">
+                <div className="py-12 md:py-16 text-center border-b border-light-border dark:border-dark-border">
+                    <h2 className="text-3xl md:text-4xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">
                         Ready to Build the Future?
                     </h2>
-                    <p className="text-text-secondary max-w-xl mx-auto mb-8">
+                    <p className="text-light-text-secondary dark:text-dark-text-secondary max-w-xl mx-auto mb-8">
                         Join our next cohort of innovators. Register for the AI Challenge or pitch your startup idea today.
                     </p>
                     <Link to="/register">
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
                 {/* Main Footer Links */}
                 <div className="py-8 grid grid-cols-2 md:grid-cols-4 gap-8">
                      <div>
-                        <h3 className="text-base font-poppins font-semibold text-text-main mb-4">Quick Links</h3>
+                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Quick Links</h3>
                         <ul className="space-y-3">
                             <FooterLink to="/about">About Us</FooterLink>
                             <FooterLink to="/programs">Programs</FooterLink>
@@ -52,27 +52,27 @@ const Footer: React.FC = () => {
                     </div>
 
                     <div>
-                        <h3 className="text-base font-poppins font-semibold text-text-main mb-4">Legal</h3>
+                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Legal</h3>
                         <ul className="space-y-3">
-                            <FooterLink to="/#">Terms and Conditions</FooterLink>
-                            <FooterLink to="/#">Privacy Policy</FooterLink>
+                            <FooterLink to="/terms-and-conditions">Terms and Conditions</FooterLink>
+                            <FooterLink to="/privacy-policy">Privacy Policy</FooterLink>
                             <FooterLink to="/contact">Contact Us</FooterLink>
                         </ul>
                     </div>
                     
                     <div className="space-y-3 col-span-2 md:col-span-2">
-                        <h3 className="text-base font-poppins font-semibold text-text-main mb-4">Get In Touch</h3>
-                        <div className="flex items-start space-x-2 text-text-secondary text-sm">
+                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Get In Touch</h3>
+                        <div className="flex items-start space-x-2 text-light-text-secondary dark:text-dark-text-secondary text-sm">
                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                              <span>Kondapur, Hyderabad, India</span>
                         </div>
-                        <div className="flex items-center space-x-2 text-text-secondary text-sm">
+                        <div className="flex items-center space-x-2 text-light-text-secondary dark:text-dark-text-secondary text-sm">
                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
-                             <a href="mailto:info@huntifyy.com" className="hover:text-white transition-colors duration-300">info@huntifyy.com</a>
+                             <a href="mailto:info@huntifyy.com" className="hover:text-light-text-main dark:hover:text-dark-text-main transition-colors duration-300">info@huntifyy.com</a>
                         </div>
-                        <div className="flex items-center space-x-2 text-text-secondary text-sm">
+                        <div className="flex items-center space-x-2 text-light-text-secondary dark:text-dark-text-secondary text-sm">
                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg>
-                             <a href="https://wa.me/917997622601" className="hover:text-white transition-colors duration-300">+91 79976 22601</a>
+                             <a href="https://wa.me/917997622601" className="hover:text-light-text-main dark:hover:text-dark-text-main transition-colors duration-300">+91 79976 22601</a>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
                 <div className="py-6 flex flex-col md:flex-row items-center justify-between">
                     <div className="flex items-center space-x-3 mb-4 md:mb-0">
                          <LogoIcon className="h-8 w-auto" />
-                         <p className="text-text-secondary text-sm">&copy; {currentYear} Huntifyy. All rights reserved.</p>
+                         <p className="text-light-text-secondary dark:text-dark-text-secondary text-sm">&copy; {currentYear} Huntifyy. All rights reserved.</p>
                     </div>
                     <div className="flex space-x-5">
                          <SocialIcon href="#">
