@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FadeIn } from '../components/FadeIn';
 
@@ -8,8 +7,8 @@ const About: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <header className="text-center mb-16">
-                        <h1 className="text-4xl font-poppins font-bold mb-4">About Huntifyy</h1>
-                        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                        <h1 className="text-4xl font-poppins font-bold text-text-main mb-4">About Huntifyy</h1>
+                        <p className="text-lg text-text-secondary max-w-3xl mx-auto">
                             We are the architects of innovation, building a community where technology and entrepreneurship thrive.
                         </p>
                     </header>
@@ -18,11 +17,11 @@ const About: React.FC = () => {
                 <FadeIn>
                     <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
                         <div>
-                            <h2 className="text-3xl font-poppins font-bold mb-4">Our Mission & Vision</h2>
-                            <p className="text-gray-600 mb-4">
+                            <h2 className="text-3xl font-poppins font-bold text-text-main mb-4">Our Mission & Vision</h2>
+                            <p className="text-text-secondary mb-4">
                                 Our mission is to democratize access to cutting-edge technology education and startup resources. We aim to identify and nurture the next generation of tech leaders and visionaries from every corner of the globe.
                             </p>
-                            <p className="text-gray-600">
+                            <p className="text-text-secondary">
                                 We envision a future where anyone with a powerful idea has a clear pathway to bring it to life, supported by a robust ecosystem of mentors, peers, and investors. Huntifyy is more than a platform; it's a movement.
                             </p>
                         </div>
@@ -33,15 +32,15 @@ const About: React.FC = () => {
                 </FadeIn>
 
                 <FadeIn>
-                    <div className="bg-bg-section p-8 md:p-12 rounded-lg text-center">
-                        <h2 className="text-3xl font-poppins font-bold mb-4">How Huntifyy Works</h2>
-                        <p className="text-gray-600 max-w-3xl mx-auto mb-12">
+                    <div className="bg-bg-secondary border border-gray-800 p-8 md:p-12 rounded-xl text-center">
+                        <h2 className="text-3xl font-poppins font-bold text-text-main mb-4">How Huntifyy Works</h2>
+                        <p className="text-text-secondary max-w-3xl mx-auto mb-12">
                             We believe in a hands-on, project-based approach. Our platform provides the tools, challenges, and connections to accelerate your growth.
                         </p>
-                        <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-soft">
+                        <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-soft border border-gray-700">
                             {/* Placeholder for video */}
-                            <div className="bg-gray-800 w-full h-full flex items-center justify-center">
-                                <p className="text-white text-xl">Platform Video Coming Soon</p>
+                            <div className="bg-bg-main w-full h-full flex items-center justify-center">
+                                <p className="text-text-secondary text-xl">Platform Video Coming Soon</p>
                             </div>
                         </div>
                     </div>

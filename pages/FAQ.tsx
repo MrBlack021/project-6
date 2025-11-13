@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FadeIn } from '../components/FadeIn';
 
@@ -36,7 +35,7 @@ const faqs = [
 const AccordionItem: React.FC<{ q: string; a: string; }> = ({ q, a }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div className="border-b">
+        <div className="border-b border-gray-800">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex justify-between items-center text-left py-4 px-2"
@@ -46,8 +45,10 @@ const AccordionItem: React.FC<{ q: string; a: string; }> = ({ q, a }) => {
                     <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
-                <p className="p-4 pt-0 text-gray-600">{a}</p>
+            <div className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                <div className="overflow-hidden">
+                    <p className="p-4 pt-0 text-text-secondary">{a}</p>
+                </div>
             </div>
         </div>
     );
@@ -59,14 +60,14 @@ const FAQ: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <header className="text-center mb-12">
-                        <h1 className="text-4xl font-poppins font-bold mb-4">Frequently Asked Questions</h1>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        <h1 className="text-4xl font-poppins font-bold text-text-main mb-4">Frequently Asked Questions</h1>
+                        <p className="text-lg text-text-secondary max-w-2xl mx-auto">
                             Have questions? We've got answers. If you don't see your question here, feel free to reach out.
                         </p>
                     </header>
                 </FadeIn>
                 <FadeIn>
-                    <div className="max-w-3xl mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-soft">
+                    <div className="max-w-3xl mx-auto bg-bg-secondary border border-gray-800 p-4 sm:p-6 rounded-xl shadow-soft">
                         {faqs.map((faq, index) => (
                             <AccordionItem key={index} q={faq.question} a={faq.answer} />
                         ))}

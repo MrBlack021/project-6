@@ -1,10 +1,44 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { LogoIcon } from './LogoIcon';
 import Button from './Button';
 
+const AdminAccessModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+    return (
+        <div 
+            className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4"
+            onClick={onClose}
+            aria-modal="true"
+            role="dialog"
+        >
+            <div 
+                className="bg-bg-secondary border border-gray-700 rounded-lg shadow-soft p-8 max-w-sm w-full relative transform transition-all"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button 
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-500 hover:text-white"
+                    aria-label="Close modal"
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                <div className="text-center">
+                    <h2 className="text-2xl font-poppins font-bold text-text-main mb-4">Admin Access Required</h2>
+                    <p className="text-text-secondary mb-6">
+                        The agent building platform is a restricted area. Please contact support if you believe you should have access.
+                    </p>
+                    <Button onClick={onClose} variant="gradient">
+                        Got It
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const Header: React.FC = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuОpen] = useState(false);
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
     const navLinks = [
         { name: 'Home', path: '/' },
@@ -15,69 +49,71 @@ const Header: React.FC = () => {
         { name: 'Contact', path: '/contact' },
     ];
 
-    const activeLinkClass = "text-primary border-b-2 border-primary";
-    const inactiveLinkClass = "text-gray-600 hover:text-accent transition-colors duration-300";
+    const linkClasses = "relative text-text-secondary hover:text-white transition-colors duration-300 py-2";
+    const activeLinkClasses = "text-white font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary";
+
+    const handleLaunchClick = () => {
+        setIsMenuОpen(false);
+        setIsAdminModalOpen(true);
+    };
 
     return (
-        <header className="bg-bg-main/80 backdrop-blur-lg sticky top-0 z-50 shadow-soft">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-20">
-                    <NavLink to="/" className="flex items-center space-x-2">
-                        <LogoIcon className="h-12 w-auto" />
-                    </NavLink>
+        <>
+            <header className="bg-bg-main/70 backdrop-blur-lg sticky top-0 z-40 border-b border-gray-800">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-20">
+                        <NavLink to="/" className="flex items-center space-x-2">
+                            <LogoIcon className="h-10 w-auto" />
+                        </NavLink>
 
-                    <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
-                        {navLinks.map((link) => (
-                            <NavLink
-                                key={link.name}
-                                to={link.path}
-                                className={({ isActive }) => 
-                                    `${isActive ? activeLinkClass : inactiveLinkClass} font-medium pb-1`
-                                }
-                            >
-                                {link.name}
-                            </NavLink>
-                        ))}
-                    </nav>
+                        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+                            {navLinks.map((link) => (
+                                <NavLink
+                                    key={link.name}
+                                    to={link.path}
+                                    className={({ isActive }) => 
+                                        `${linkClasses} ${isActive ? activeLinkClasses : ''}`
+                                    }
+                                >
+                                    {link.name}
+                                </NavLink>
+                            ))}
+                        </nav>
 
-                    <div className='hidden md:block'>
-                         <Link to="/platform">
-                            <Button className='px-6 py-2'>Launch Platform</Button>
-                        </Link>
-                    </div>
+                        <div className='hidden md:block'>
+                             <Button onClick={handleLaunchClick} variant="gradient">Huntifyy Agent Platform</Button>
+                        </div>
 
-                    <div className="md:hidden">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-text-main focus:outline-none">
-                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
-                            </svg>
-                        </button>
+                        <div className="md:hidden">
+                            <button onClick={() => setIsMenuОpen(!isMenuOpen)} className="text-text-main focus:outline-none z-50">
+                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {isMenuOpen && (
-                <div className="md:hidden bg-bg-main pb-4">
-                    <nav className="flex flex-col items-center space-y-4">
-                        {navLinks.map((link) => (
-                            <NavLink
-                                key={link.name}
-                                to={link.path}
-                                onClick={() => setIsMenuOpen(false)}
-                                className={({ isActive }) => 
-                                    `${isActive ? 'text-primary' : 'text-gray-600'} hover:text-accent transition-colors duration-300 font-medium text-lg`
-                                }
-                            >
-                                {link.name}
-                            </NavLink>
-                        ))}
-                         <Link to="/platform" onClick={() => setIsMenuOpen(false)}>
-                            <Button className='mt-4'>Launch Platform</Button>
-                        </Link>
-                    </nav>
-                </div>
-            )}
-        </header>
+                {isMenuOpen && (
+                    <div className="md:hidden absolute top-0 left-0 w-full h-screen bg-bg-main pt-24">
+                        <nav className="flex flex-col items-center space-y-8">
+                            {navLinks.map((link) => (
+                                <NavLink
+                                    key={link.name}
+                                    to={link.path}
+                                    onClick={() => setIsMenuОpen(false)}
+                                    className="text-text-secondary hover:text-white transition-colors duration-300 font-medium text-2xl"
+                                >
+                                    {link.name}
+                                </NavLink>
+                            ))}
+                             <Button onClick={handleLaunchClick} variant="gradient" className='mt-8'>Huntifyy Agent Platform</Button>
+                        </nav>
+                    </div>
+                )}
+            </header>
+            {isAdminModalOpen && <AdminAccessModal onClose={() => setIsAdminModalOpen(false)} />}
+        </>
     );
 };
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FadeIn } from '../components/FadeIn';
 
@@ -42,13 +41,13 @@ const testimonials = [
 ];
 
 const TestimonialCard: React.FC<typeof testimonials[0]> = ({ quote, name, location, image }) => (
-    <div className="bg-white p-8 rounded-lg shadow-soft h-full flex flex-col">
-        <p className="text-gray-600 italic mb-6 flex-grow">"{quote}"</p>
+    <div className="bg-bg-secondary p-8 rounded-xl border border-gray-800 h-full flex flex-col transition-transform duration-300 hover:-translate-y-1">
+        <p className="text-text-secondary italic mb-6 flex-grow">"{quote}"</p>
         <div className="flex items-center mt-auto">
             <img src={image} alt={name} className="w-14 h-14 rounded-full mr-4 object-cover" />
             <div>
                 <p className="font-bold text-text-main text-lg">{name}</p>
-                <p className="text-gray-500">{location}</p>
+                <p className="text-text-secondary">{location}</p>
             </div>
         </div>
     </div>
@@ -56,12 +55,12 @@ const TestimonialCard: React.FC<typeof testimonials[0]> = ({ quote, name, locati
 
 const Testimonials: React.FC = () => {
     return (
-        <div className="bg-bg-section py-16">
+        <div className="bg-bg-main py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <header className="text-center mb-16">
-                        <h1 className="text-4xl font-poppins font-bold mb-4">What Our Participants Say</h1>
-                        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                        <h1 className="text-4xl font-poppins font-bold text-text-main mb-4">What Our Participants Say</h1>
+                        <p className="text-lg text-text-secondary max-w-3xl mx-auto">
                             Real stories from developers and entrepreneurs who started their journey with us.
                         </p>
                     </header>
