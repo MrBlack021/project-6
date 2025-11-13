@@ -32,35 +32,17 @@ const AnimatedHero: React.FC = () => (
     </div>
 );
 
-const StatItem: React.FC<{ icon: React.ReactNode; value: number; startValue?: number; label: string; suffix?: string; }> = ({ icon, value, startValue = 0, label, suffix }) => {
+const InlineStatItem: React.FC<{ value: number; startValue?: number; label: string; suffix?: string; }> = ({ value, startValue = 0, label, suffix }) => {
     const { count, ref } = useCountUp(value, 2000, startValue);
     return (
-        <div className="text-center" ref={ref}>
-            <div className="w-16 h-16 bg-light-bg-main dark:bg-dark-bg-main text-primary rounded-xl flex items-center justify-center mx-auto mb-4 border border-light-border dark:border-dark-border">
-                {icon}
-            </div>
-            <p className="text-4xl md:text-5xl font-poppins font-bold text-primary">
+        <div ref={ref} className="text-center">
+            <p className="text-3xl md:text-4xl font-poppins font-bold text-primary">
                 {count}{suffix}
             </p>
-            <p className="text-light-text-secondary dark:text-dark-text-secondary mt-2">{label}</p>
+            <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-1">{label}</p>
         </div>
     );
 };
-
-const StatsSection: React.FC = () => (
-     <section className="py-20 bg-light-bg-secondary dark:bg-dark-bg-secondary border-y border-light-border dark:border-dark-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <StatItem icon={<span className="text-3xl">🏆</span>} value={5} label="Prize Pool" suffix=" Lakhs+" />
-                    <StatItem icon={<span className="text-3xl">🗓️</span>} value={30} label="Day Challenge" />
-                    <StatItem icon={<span className="text-3xl">🚀</span>} value={50} startValue={20} label="Startups Pitched" suffix="+" />
-                    <StatItem icon={<span className="text-3xl">👥</span>} value={1000} startValue={900} label="Innovators Joined" suffix="+" />
-                </div>
-            </FadeIn>
-        </div>
-    </section>
-);
 
 const ArenaSection: React.FC = () => (
     <section className="py-20 bg-light-bg-main dark:bg-dark-bg-main">
@@ -82,6 +64,10 @@ const ArenaSection: React.FC = () => (
                         <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary mb-8">
                             This is more than a competition—it's a crucible for elite developers. Step into a high-stakes, 30-day challenge to build, train, and deploy advanced AI agents. Prove your mastery and claim your place among the best.
                         </p>
+                        <div className="grid grid-cols-2 gap-8 mb-8">
+                            <InlineStatItem value={50} label="Lakhs+ Prize Pool" />
+                            <InlineStatItem value={30} label="Day Challenge" />
+                        </div>
                         <Link to="/programs"><Button variant="outline">Explore the Challenge</Button></Link>
                     </div>
                 </div>
@@ -101,6 +87,10 @@ const LaunchpadSection: React.FC = () => (
                         <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary mb-8">
                             Your idea, any sector. This is where visionary concepts take flight. We provide the mentorship, resources, and investor network to transform groundbreaking ideas—from AI to FinTech—into market-ready ventures.
                         </p>
+                        <div className="grid grid-cols-2 gap-8 mb-8">
+                            <InlineStatItem value={50} startValue={20} label="Startups Pitched" suffix="+" />
+                            <InlineStatItem value={1000} startValue={900} label="Innovators Joined" suffix="+" />
+                        </div>
                         <Link to="/programs"><Button variant="outline">Discover the Support</Button></Link>
                     </div>
                      <div className="flex justify-center items-center h-80 order-1 md:order-2">
@@ -170,7 +160,6 @@ const Home: React.FC = () => {
     return (
         <div className="bg-light-bg-main dark:bg-dark-bg-main">
             <AnimatedHero />
-            <StatsSection />
             <ArenaSection />
             <LaunchpadSection />
             <TestimonialPreview />
