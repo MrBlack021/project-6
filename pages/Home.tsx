@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { FadeIn } from '../components/FadeIn';
 import { useCountUp } from '../hooks/useCountUp';
+import { PlexusBackground } from '../components/PlexusBackground';
 
 const HeroSection: React.FC = () => (
-    <div className="relative min-h-[80vh] flex items-center justify-center text-center overflow-hidden bg-light-bg-secondary dark:bg-dark-bg-secondary">
-        <div className="absolute inset-0 z-0 opacity-50 dark:opacity-30">
-            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/20 dark:bg-primary/10 rounded-full filter blur-3xl animate-float"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/20 dark:bg-primary/10 rounded-full filter blur-3xl animate-float [animation-delay:-2s]"></div>
-             <div className="absolute bottom-1/2 right-1/2 w-80 h-80 bg-primary/10 dark:bg-primary/5 rounded-full filter blur-3xl animate-float [animation-delay:-4s]"></div>
-        </div>
+    <div className="relative min-h-[90vh] flex items-center justify-center text-center overflow-hidden bg-light-bg-main dark:bg-dark-bg-main">
+        <PlexusBackground />
         <div className="relative z-10 p-8">
             <FadeIn>
                  <div>
@@ -43,7 +40,7 @@ const InlineStatItem: React.FC<{ value: number; startValue?: number; label: stri
 };
 
 const ProgramsSection: React.FC = () => (
-    <section className="py-20 bg-light-bg-main dark:bg-dark-bg-main">
+    <section className="py-20 bg-light-bg-secondary dark:bg-dark-bg-secondary border-y border-light-border dark:border-dark-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
             <FadeIn>
                 <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -59,15 +56,23 @@ const ProgramsSection: React.FC = () => (
                         </div>
                         <Link to="/programs"><Button variant="outline">Explore the Challenge</Button></Link>
                     </div>
-                    <div>
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1740&q=80" alt="Developers working on code" className="rounded-lg shadow-soft dark:shadow-soft-dark w-full h-auto object-cover"/>
+                    <div className="relative w-full h-80 rounded-lg overflow-hidden border border-light-border dark:border-dark-border">
+                         <img
+                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1740&q=80"
+                            alt="AI Challenge - Data Analytics"
+                            className="w-full h-full object-cover"
+                        />
                     </div>
                 </div>
             </FadeIn>
             <FadeIn>
                 <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div className="order-2 md:order-1">
-                         <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1740&q=80" alt="Startup team collaborating" className="rounded-lg shadow-soft dark:shadow-soft-dark w-full h-auto object-cover"/>
+                    <div className="relative w-full h-80 rounded-lg overflow-hidden border border-light-border dark:border-dark-border order-2 md:order-1">
+                         <img
+                            src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1740&q=80"
+                            alt="Startup Support - Team Collaboration"
+                            className="w-full h-full object-cover"
+                        />
                     </div>
                      <div className="text-center md:text-left order-1 md:order-2">
                         <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4">The Launchpad</h2>
@@ -93,18 +98,16 @@ const TestimonialPreview: React.FC = () => {
             quote: "The AI Challenge was a game-changer for my career. I went from knowing basic Python to deploying a complex AI model in just a month!",
             name: "Priya Sharma",
             location: "Bengaluru",
-            image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&q=80&fit=crop"
         },
         {
             quote: "Huntifyy's feedback on our pitch deck was invaluable. We secured our first round of funding shortly after presenting.",
             name: "Rohan Patel",
             location: "Mumbai",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&q=80&fit=crop"
         },
     ];
 
     return (
-        <section className="py-20 bg-light-bg-secondary dark:bg-dark-bg-secondary border-y border-light-border dark:border-dark-border">
+        <section className="py-20 bg-light-bg-main dark:bg-dark-bg-main">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-12">Success Stories</h2>
@@ -112,10 +115,9 @@ const TestimonialPreview: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-8">
                     {testimonials.map((testimonial, index) => (
                         <FadeIn key={index} delay={index === 1 ? 'duration-1000' : 'duration-700'}>
-                            <div className="bg-light-bg-main dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full transition-all duration-300 hover:shadow-soft dark:hover:shadow-soft-dark hover:-translate-y-1">
-                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6 text-lg">"{testimonial.quote}"</p>
+                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full">
+                                <p className="text-light-text-main dark:text-dark-text-main mb-6 text-2xl font-poppins">"{testimonial.quote}"</p>
                                 <div className="flex items-center">
-                                    <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full mr-4 object-cover" />
                                     <div>
                                         <p className="font-bold text-light-text-main dark:text-dark-text-main">{testimonial.name}</p>
                                         <p className="text-light-text-secondary dark:text-dark-text-secondary text-sm">{testimonial.location}</p>
