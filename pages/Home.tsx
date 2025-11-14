@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import { FadeIn } from '../components/FadeIn';
 import { useCountUp } from '../hooks/useCountUp';
 import { PlexusBackground } from '../components/PlexusBackground';
+import { useAppContext } from '../context/AppContext';
 
 const HeroSection: React.FC = () => (
     <div className="relative min-h-[90vh] flex items-center justify-center text-center overflow-hidden bg-light-bg-main dark:bg-dark-bg-main">
@@ -93,18 +94,8 @@ const ProgramsSection: React.FC = () => (
 );
 
 const TestimonialPreview: React.FC = () => {
-    const testimonials = [
-        {
-            quote: "The AI Challenge was a game-changer for my career. I went from knowing basic Python to deploying a complex AI model in just a month!",
-            name: "Priya Sharma",
-            location: "Bengaluru",
-        },
-        {
-            quote: "Huntifyy's feedback on our pitch deck was invaluable. We secured our first round of funding shortly after presenting.",
-            name: "Rohan Patel",
-            location: "Mumbai",
-        },
-    ];
+    const { testimonials } = useAppContext();
+    const testimonialsToShow = testimonials.slice(0, 2);
 
     return (
         <section className="py-20 bg-light-bg-main dark:bg-dark-bg-main">
@@ -113,15 +104,13 @@ const TestimonialPreview: React.FC = () => {
                     <h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-12">Success Stories</h2>
                 </FadeIn>
                 <div className="grid md:grid-cols-2 gap-8">
-                    {testimonials.map((testimonial, index) => (
+                    {testimonialsToShow.map((testimonial, index) => (
                         <FadeIn key={index} delay={index === 1 ? 'duration-1000' : 'duration-700'}>
-                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full">
-                                <p className="text-light-text-main dark:text-dark-text-main mb-6 text-2xl font-poppins">"{testimonial.quote}"</p>
-                                <div className="flex items-center">
-                                    <div>
-                                        <p className="font-bold text-light-text-main dark:text-dark-text-main">{testimonial.name}</p>
-                                        <p className="text-light-text-secondary dark:text-dark-text-secondary text-sm">{testimonial.location}</p>
-                                    </div>
+                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full flex flex-col">
+                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6 text-xl font-sans flex-grow leading-relaxed">"{testimonial.quote}"</p>
+                                <div className="mt-auto border-t border-light-border dark:border-dark-border pt-4">
+                                    <p className="font-bold text-light-text-main dark:text-dark-text-main">{testimonial.name}</p>
+                                    <p className="text-light-text-secondary dark:text-dark-text-secondary text-sm">{testimonial.title} &bull; {testimonial.location}</p>
                                 </div>
                             </div>
                         </FadeIn>
