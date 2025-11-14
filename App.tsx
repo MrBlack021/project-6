@@ -13,7 +13,6 @@ import Dashboard from './pages/Dashboard';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
-import PaymentSuccess from './pages/PaymentSuccess';
 import SplashScreen from './components/SplashScreen';
 
 
@@ -53,7 +52,6 @@ const ThemedApp: React.FC = () => {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                         <Route path="/terms-and-conditions" element={<Terms />} />
-                        <Route path="/payment-success" element={<PaymentSuccess />} />
                     </Routes>
                 </main>
                 <Footer />

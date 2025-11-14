@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { FadeIn } from '../components/FadeIn';
+import { useAppContext } from '../context/AppContext';
 
 const FormInput: React.FC<React.InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string }> = ({ label, error, ...props }) => (
     <div>
@@ -28,6 +29,7 @@ const FormTextarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement> &
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
+    const { setRegistrationId, setRegistrationData } = useAppContext();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -86,28 +88,42 @@ const Register: React.FC = () => {
         }
 
         setIsSubmitting(true);
+        setErrors({});
 
-        const dataToStore: any = { ...formData };
-
-        const proceedToPayment = () => {
-            sessionStorage.setItem('huntifyy-registration-data', JSON.stringify(dataToStore));
-            navigate('/payment-success');
-        };
-
+        const submissionData = new FormData();
+        submissionData.append('name', formData.name);
+        submissionData.append('email', formData.email);
+        submissionData.append('program', formData.program);
+        submissionData.append('idea', formData.idea);
+        submissionData.append('terms', String(formData.terms));
+        
         if (pitchDeck) {
-            const reader = new FileReader();
-            reader.readAsDataURL(pitchDeck);
-            reader.onload = () => {
-                dataToStore.fileData = reader.result;
-                dataToStore.fileName = pitchDeck.name;
-                proceedToPayment();
-            };
-            reader.onerror = () => {
-                setIsSubmitting(false);
-                setErrors(prev => ({...prev, pitchDeck: 'Could not process file. Please try again.'}));
-            };
-        } else {
-            proceedToPayment();
+            submissionData.append('pitchDeck', pitchDeck);
+        }
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                body: submissionData,
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Registration failed.');
+            }
+
+            const result = await response.json();
+            
+            setRegistrationId(result.registrationId);
+            setRegistrationData(result.registrationData);
+
+            navigate('/dashboard');
+
+        } catch (error) {
+            console.error('Registration error:', error);
+            setErrors(prev => ({ ...prev, form: error instanceof Error ? error.message : 'An unknown error occurred.' }));
+        } finally {
+            setIsSubmitting(false);
         }
     };
     
@@ -182,9 +198,11 @@ const Register: React.FC = () => {
                                 </div>
                             </div>
                             
+                            {errors.form && <p className="text-red-500 text-sm text-center mt-4">{errors.form}</p>}
+
                             <div className="mt-8">
                                 <Button type="submit" variant="primary" className="w-full text-lg" disabled={isSubmitting}>
-                                    {isSubmitting ? 'Processing...' : 'Proceed to Pay'}
+                                    {isSubmitting ? 'Processing...' : 'Register & Proceed'}
                                 </Button>
                             </div>
                         </form>

@@ -14,13 +14,27 @@ const Contact: React.FC = () => {
         e.preventDefault();
         setStatus('Sending...');
 
-        // Simulate a successful network request without a backend
-        setTimeout(() => {
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+
             setStatus('Thank you! Your message has been sent.');
             setFormData({ name: '', email: '', message: '' });
-            // Clear the status message after 5 seconds
             setTimeout(() => setStatus(''), 5000);
-        }, 1000);
+        } catch (error) {
+            console.error('Failed to send message:', error);
+            setStatus('An error occurred. Please try again.');
+            setTimeout(() => setStatus(''), 5000);
+        }
     };
 
     return (
