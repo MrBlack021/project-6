@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider, useAppContext } from './context/AppContext';
 import Header from './components/Header';
@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import PaymentSuccess from './pages/PaymentSuccess';
+import SplashScreen from './components/SplashScreen';
 
 
 const ScrollToTop: React.FC = () => {
@@ -63,9 +64,32 @@ const ThemedApp: React.FC = () => {
 
 
 const App: React.FC = () => {
+    const [showSplash, setShowSplash] = useState(true);
+    const [isFading, setIsFading] = useState(false);
+
+    useEffect(() => {
+        // Start fading out after the logo animation completes (approx. 2.8s)
+        const fadeTimer = setTimeout(() => {
+            setIsFading(true);
+        }, 2800);
+
+        // Hide the splash screen completely after the fade-out transition (500ms)
+        const hideTimer = setTimeout(() => {
+            setShowSplash(false);
+        }, 3300);
+
+        return () => {
+            clearTimeout(fadeTimer);
+            clearTimeout(hideTimer);
+        };
+    }, []);
+
     return (
         <AppProvider>
-            <ThemedApp />
+            {showSplash && <SplashScreen isFadingOut={isFading} />}
+            <div className={`transition-opacity duration-500 ${!showSplash ? 'opacity-100' : 'opacity-0'}`}>
+                 <ThemedApp />
+            </div>
         </AppProvider>
     );
 };

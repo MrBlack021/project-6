@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const LogoIcon: React.FC<{className?: string}> = ({ className }) => (
+export const LogoIcon: React.FC<{className?: string; animated?: boolean}> = ({ className, animated }) => (
     <svg className={className} viewBox="0 0 200 44" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Huntifyy Logo">
         <defs>
             <filter id="orange-glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -36,9 +36,21 @@ export const LogoIcon: React.FC<{className?: string}> = ({ className }) => (
         {/* The Icon */}
         <g filter="url(#blue-glow-professional)">
             <circle cx="22" cy="22" r="16" fill="#F59E0B" filter="url(#orange-glow)"/>
-            <circle cx="22" cy="22" r="15" fill="url(#logo-orange)" stroke="#FFFFFF" strokeOpacity="0.2" strokeWidth="0.5" />
+            <circle 
+                cx="22" cy="22" r="15" 
+                fill="url(#logo-orange)" 
+                stroke="#FFFFFF" 
+                strokeOpacity="0.2" 
+                strokeWidth="0.5"
+                className={animated ? 'logo-anim-circle' : ''}
+            />
             {/* Chevron shape for arrow */}
-            <path d="M19 16 L27 22 L19 28 L21 28 L29 22 L21 16 Z" fill="url(#metallic-gray)" style={{filter: 'url(#emboss-effect)'}} />
+            <path 
+                d="M19 16 L27 22 L19 28 L21 28 L29 22 L21 16 Z" 
+                fill="url(#metallic-gray)" 
+                style={{filter: 'url(#emboss-effect)'}} 
+                className={animated ? 'logo-anim-chevron' : ''}
+            />
         </g>
         
         {/* The Text */}
@@ -51,6 +63,7 @@ export const LogoIcon: React.FC<{className?: string}> = ({ className }) => (
             fill="url(#metallic-gray)"
             letterSpacing="0.5"
             style={{filter: 'url(#emboss-effect)'}}
+            className={animated ? 'logo-anim-text' : ''}
         >
             Huntifyy
         </text>
