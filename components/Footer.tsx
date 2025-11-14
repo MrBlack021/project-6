@@ -46,7 +46,6 @@ const Footer: React.FC = () => {
                         <ul className="space-y-3">
                             <FooterLink to="/about">About Us</FooterLink>
                             <FooterLink to="/programs">Programs</FooterLink>
-                            <FooterLink to="/testimonials">Testimonials</FooterLink>
                             <FooterLink to="/faq">FAQ</FooterLink>
                         </ul>
                     </div>

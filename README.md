@@ -15,22 +15,6 @@ This project uses Supabase as its backend-as-a-service. You will need a free Sup
 
 Navigate to the **SQL Editor** in your Supabase project dashboard and run the following queries one by one to create the necessary tables.
 
-**`testimonials` table:**
-```sql
-CREATE TABLE testimonials (
-  id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  name TEXT NOT NULL,
-  title TEXT NOT NULL,
-  quote TEXT NOT NULL,
-  location TEXT
-);
--- Enable Row Level Security and allow public read access
-ALTER TABLE testimonials ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Enable read access for all users" ON testimonials FOR SELECT USING (true);
-CREATE POLICY "Enable insert for all users" ON testimonials FOR INSERT WITH CHECK (true);
-```
-
 **`registrations` table:**
 ```sql
 CREATE TABLE registrations (

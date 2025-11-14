@@ -29,45 +29,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 // --- API Routes ---
 
-// GET all testimonials
-app.get('/api/testimonials', async (req, res) => {
-    try {
-        const { data, error } = await supabase
-            .from('testimonials')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (error) throw error;
-        res.status(200).json(data);
-    } catch (error) {
-        console.error('Error fetching testimonials:', error);
-        res.status(500).json({ message: 'Failed to fetch testimonials.', error: error.message });
-    }
-});
-
-// POST a new testimonial
-app.post('/api/testimonials', async (req, res) => {
-    const { name, title, quote } = req.body;
-
-    if (!name || !title || !quote) {
-        return res.status(400).json({ message: 'All fields are required.' });
-    }
-
-    try {
-        const { data, error } = await supabase
-            .from('testimonials')
-            .insert([{ name, title, quote, location: 'Online' }])
-            .select()
-            .single();
-        
-        if (error) throw error;
-        res.status(201).json(data);
-    } catch (error) {
-        console.error('Error creating testimonial:', error);
-        res.status(500).json({ message: 'Failed to submit testimonial.', error: error.message });
-    }
-});
-
 // POST a contact form submission
 app.post('/api/contact', async (req, res) => {
     const { name, email, message } = req.body;
