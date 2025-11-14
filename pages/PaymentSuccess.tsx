@@ -3,23 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { FadeIn } from '../components/FadeIn';
 
-// Helper function to convert a data URL to a Blob
-const dataURLtoBlob = (dataurl: string) => {
-    const arr = dataurl.split(',');
-    const mimeMatch = arr[0].match(/:(.*?);/);
-    if (!mimeMatch) {
-        throw new Error('Invalid data URL');
-    }
-    const mime = mimeMatch[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], { type: mime });
-}
-
 const PaymentSuccess: React.FC = () => {
     const navigate = useNavigate();
     const { setRegistrationId, setRegistrationData } = useAppContext();
@@ -38,23 +21,8 @@ const PaymentSuccess: React.FC = () => {
             try {
                 const data = JSON.parse(storedData);
 
-                const submissionData = new FormData();
-                submissionData.append('name', data.name);
-                submissionData.append('email', data.email);
-                submissionData.append('program', data.program);
-                submissionData.append('idea', data.idea);
-                submissionData.append('terms', String(data.terms));
-
-                if (data.fileData && data.fileName) {
-                    const pitchDeckBlob = dataURLtoBlob(data.fileData);
-                    submissionData.append('pitchDeck', pitchDeckBlob, data.fileName);
-                }
-
-                // Send data to backend
-                await fetch('/wp-json/huntifyy/v1/register-submission', {
-                    method: 'POST',
-                    body: submissionData,
-                });
+                // Process registration entirely on the client-side
+                // The fetch call to a backend has been removed
 
                 // Generate unique ID and set context
                 const uniqueId = 'HN2025' + Math.floor(100000 + Math.random() * 900000);

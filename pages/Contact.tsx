@@ -14,24 +14,13 @@ const Contact: React.FC = () => {
         e.preventDefault();
         setStatus('Sending...');
 
-        try {
-            const response = await fetch('/wp-json/huntifyy/v1/contact-submission', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                setStatus('Thank you! Your message has been sent.');
-                setFormData({ name: '', email: '', message: '' });
-            } else {
-                setStatus('An error occurred. Please try again.');
-            }
-        } catch (error) {
-            setStatus('An error occurred. Please try again.');
-        }
-
-        setTimeout(() => setStatus(''), 5000);
+        // Simulate a successful network request without a backend
+        setTimeout(() => {
+            setStatus('Thank you! Your message has been sent.');
+            setFormData({ name: '', email: '', message: '' });
+            // Clear the status message after 5 seconds
+            setTimeout(() => setStatus(''), 5000);
+        }, 1000);
     };
 
     return (

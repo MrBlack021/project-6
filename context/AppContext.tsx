@@ -23,7 +23,9 @@ interface AppContextType {
     theme: Theme;
     toggleTheme: () => void;
     testimonials: Testimonial[];
-    addTestimonial: (testimonial: Omit<Testimonial, 'location'>) => void;
+    addTestimonial: (testimonial: Omit<Testimonial, 'location'>) => Promise<void>;
+    loadingTestimonials: boolean;
+    testimonialError: string | null;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -53,6 +55,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const [registrationId, setRegistrationId] = useState<string | null>(null);
     const [registrationData, setRegistrationData] = useState<RegistrationData | null>(null);
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+    const [loadingTestimonials, setLoadingTestimonials] = useState<boolean>(true);
+    const [testimonialError, setTestimonialError] = useState<string | null>(null);
+
     const [theme, setTheme] = useState<Theme>(() => {
         const savedTheme = localStorage.getItem('huntifyy-theme');
         return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'light';
@@ -63,29 +68,59 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }, [theme]);
 
     useEffect(() => {
-        try {
-            const savedTestimonials = localStorage.getItem('huntifyy-testimonials');
-            if (savedTestimonials) {
-                setTestimonials(JSON.parse(savedTestimonials));
-            } else {
-                setTestimonials(defaultTestimonials);
+        setLoadingTestimonials(true);
+        setTestimonialError(null);
+        
+        // Simulate fetching from a central data source (API)
+        const fetchTestimonials = async () => {
+            try {
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const savedTestimonials = localStorage.getItem('huntifyy-testimonials');
+                if (savedTestimonials) {
+                    setTestimonials(JSON.parse(savedTestimonials));
+                } else {
+                    // First time load, use defaults and "save" them to the central source
+                    setTestimonials(defaultTestimonials);
+                    localStorage.setItem('huntifyy-testimonials', JSON.stringify(defaultTestimonials));
+                }
+            } catch (error) {
+                console.error('Could not load testimonials', error);
+                setTestimonialError('Failed to load testimonials. Please try again later.');
+                setTestimonials(defaultTestimonials); // Fallback on error
+            } finally {
+                setLoadingTestimonials(false);
             }
-        } catch (error) {
-            console.error('Could not load testimonials from localStorage', error);
-            setTestimonials(defaultTestimonials);
-        }
+        };
+
+        fetchTestimonials();
     }, []);
 
     const toggleTheme = () => {
         setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
     };
 
-    const addTestimonial = (testimonial: Omit<Testimonial, 'location'>) => {
-        const newTestimonial: Testimonial = { ...testimonial, location: "Online" };
-        setTestimonials(prevTestimonials => {
-            const updatedTestimonials = [newTestimonial, ...prevTestimonials];
-            localStorage.setItem('huntifyy-testimonials', JSON.stringify(updatedTestimonials));
-            return updatedTestimonials;
+    const addTestimonial = (testimonial: Omit<Testimonial, 'location'>): Promise<void> => {
+        // Simulate a POST request to a backend API, returning a promise
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                try {
+                    const newTestimonial: Testimonial = { ...testimonial, location: "Online" };
+                    
+                    setTestimonials(prevTestimonials => {
+                        const updatedTestimonials = [newTestimonial, ...prevTestimonials];
+                        // Persist to our "database" (localStorage)
+                        localStorage.setItem('huntifyy-testimonials', JSON.stringify(updatedTestimonials));
+                        return updatedTestimonials;
+                    });
+
+                    resolve();
+                } catch (error) {
+                    console.error('Failed to submit testimonial:', error);
+                    reject(new Error('There was an error saving your review.'));
+                }
+            }, 800); // Simulate network delay for submission
         });
     };
 
@@ -98,6 +133,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         toggleTheme,
         testimonials,
         addTestimonial,
+        loadingTestimonials,
+        testimonialError,
     };
 
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

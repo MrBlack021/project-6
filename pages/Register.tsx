@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { FadeIn } from '../components/FadeIn';
 
@@ -27,6 +27,7 @@ const FormTextarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement> &
 );
 
 const Register: React.FC = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -90,7 +91,7 @@ const Register: React.FC = () => {
 
         const proceedToPayment = () => {
             sessionStorage.setItem('huntifyy-registration-data', JSON.stringify(dataToStore));
-            window.location.href = 'https://rzp.io/l/iZa83jT';
+            navigate('/payment-success');
         };
 
         if (pitchDeck) {

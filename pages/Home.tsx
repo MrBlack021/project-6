@@ -93,8 +93,20 @@ const ProgramsSection: React.FC = () => (
     </section>
 );
 
+const TestimonialSkeleton: React.FC = () => (
+    <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full flex flex-col animate-pulse">
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-full mb-4"></div>
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-5/6 mb-6"></div>
+        <div className="mt-auto border-t border-light-border dark:border-dark-border pt-4">
+            <div className="h-5 bg-gray-400 dark:bg-gray-600 rounded w-1/3 mb-2"></div>
+            <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-1/2"></div>
+        </div>
+    </div>
+);
+
 const TestimonialPreview: React.FC = () => {
-    const { testimonials } = useAppContext();
+    const { testimonials, loadingTestimonials, testimonialError } = useAppContext();
     const testimonialsToShow = testimonials.slice(0, 2);
 
     return (
@@ -104,21 +116,36 @@ const TestimonialPreview: React.FC = () => {
                     <h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-12">Success Stories</h2>
                 </FadeIn>
                 <div className="grid md:grid-cols-2 gap-8">
-                    {testimonialsToShow.map((testimonial, index) => (
-                        <FadeIn key={index} delay={index === 1 ? 'duration-1000' : 'duration-700'}>
-                            <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full flex flex-col">
-                                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6 text-xl font-sans flex-grow leading-relaxed">"{testimonial.quote}"</p>
-                                <div className="mt-auto border-t border-light-border dark:border-dark-border pt-4">
-                                    <p className="font-bold text-light-text-main dark:text-dark-text-main">{testimonial.name}</p>
-                                    <p className="text-light-text-secondary dark:text-dark-text-secondary text-sm">{testimonial.title} &bull; {testimonial.location}</p>
+                    {loadingTestimonials ? (
+                        <>
+                            <TestimonialSkeleton />
+                            <TestimonialSkeleton />
+                        </>
+                    ) : testimonialError ? (
+                         <div className="md:col-span-2 text-center text-red-500 bg-red-500/10 p-4 rounded-lg">
+                            {testimonialError}
+                        </div>
+                    ) : testimonialsToShow.length > 0 ? (
+                        testimonialsToShow.map((testimonial, index) => (
+                            <FadeIn key={index} delay={index === 1 ? 'duration-1000' : 'duration-700'}>
+                                <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 rounded-lg border border-light-border dark:border-dark-border h-full flex flex-col">
+                                    <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6 text-xl font-sans flex-grow leading-relaxed">"{testimonial.quote}"</p>
+                                    <div className="mt-auto border-t border-light-border dark:border-dark-border pt-4">
+                                        <p className="font-bold text-light-text-main dark:text-dark-text-main">{testimonial.name}</p>
+                                        <p className="text-light-text-secondary dark:text-dark-text-secondary text-sm">{testimonial.title} &bull; {testimonial.location}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </FadeIn>
-                    ))}
+                            </FadeIn>
+                        ))
+                    ) : (
+                        <div className="md:col-span-2 text-center py-10 bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-lg border border-light-border dark:border-dark-border">
+                            <p className="text-light-text-secondary dark:text-dark-text-secondary">No success stories yet. Be the first to share yours!</p>
+                        </div>
+                    )}
                 </div>
                  <div className="text-center mt-12">
                     <Link to="/testimonials" className="text-primary hover:opacity-80 font-semibold text-lg transition-opacity group">
-                         <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">View All Testimonials &rarr;</span>
+                         <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">View All & Share Your Story &rarr;</span>
                     </Link>
                 </div>
             </div>
