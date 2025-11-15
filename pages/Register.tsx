@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
@@ -87,28 +88,15 @@ const Register: React.FC = () => {
 
         setIsSubmitting(true);
 
-        const dataToStore: any = { ...formData };
+        // Redirect directly to the payment gateway
+        window.location.href = 'https://rzp.io/rzp/iZa83jT';
 
-        const proceedToPayment = () => {
-            sessionStorage.setItem('huntifyy-registration-data', JSON.stringify(dataToStore));
-            navigate('/payment-success');
-        };
-
-        if (pitchDeck) {
-            const reader = new FileReader();
-            reader.readAsDataURL(pitchDeck);
-            reader.onload = () => {
-                dataToStore.fileData = reader.result;
-                dataToStore.fileName = pitchDeck.name;
-                proceedToPayment();
-            };
-            reader.onerror = () => {
-                setIsSubmitting(false);
-                setErrors(prev => ({...prev, pitchDeck: 'Could not process file. Please try again.'}));
-            };
-        } else {
-            proceedToPayment();
-        }
+        // NOTE: The previous client-side registration data storage and redirection
+        // to /payment-success have been removed, as the payment is now handled
+        // by an external gateway. The external gateway would typically redirect
+        // back to your site (e.g., to /dashboard) with payment status,
+        // which would then need to be handled to set registrationId and registrationData.
+        // This current change only implements the *redirect out* to the payment gateway.
     };
     
     return (
@@ -161,7 +149,7 @@ const Register: React.FC = () => {
                                                         <p className="pl-1">or drag and drop</p>
                                                     </div>
                                                     <p className="text-xs text-gray-500">PDF, DOCX, PPTX up to 10MB</p>
-                                                    {fileName && <p className="text-sm text-green-500 mt-2 truncate max-w-xs mx-auto">{fileName}</p>}
+                                                     {fileName && <p className="text-sm text-green-500 mt-2 truncate max-w-xs mx-auto">{fileName}</p>}
                                                      {errors.pitchDeck && <p className="text-red-500 text-xs mt-1">{errors.pitchDeck}</p>}
                                                 </div>
                                             </div>
