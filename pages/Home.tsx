@@ -10,11 +10,11 @@ const HeroSection: React.FC = () => (
         <div className="relative z-10 p-8">
             <FadeIn>
                  <div>
-                    <h1 className="text-4xl md::text-7xl font-poppins font-bold mb-4 text-light-text-main dark:text-dark-text-main">
+                    <h1 className="text-4xl md:text-7xl font-poppins font-bold mb-4 text-light-text-main dark:text-dark-text-main">
                         From Ambitious Developer to Funded Founder.
                     </h1>
                     <p className="text-lg md:text-xl text-light-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto mb-8">
-                        Huntifyy is an ecosystem designed to forge the next generation of technology companies by creating a powerful synergy between proven talent and market-ready ideas.
+                        A de-risked ecosystem for cultivating elite talent and incubating high-growth startups. We connect vetted developers and visionary founders with investors.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link to="/programs"><Button variant="primary">Explore Our Ecosystem</Button></Link>
@@ -22,13 +22,17 @@ const HeroSection: React.FC = () => (
                     </div>
                 </div>
             </FadeIn>
-             <FadeIn className="mt-20">
-                <p className="text-sm uppercase tracking-widest text-light-text-secondary dark:text-dark-text-secondary mb-4">OUR GRADUATES HAVE BEEN HIRED BY</p>
-                <div className="flex justify-center items-center gap-x-8 sm:gap-x-12 lg:gap-x-16 grayscale opacity-60 dark:opacity-40">
-                    <img className="h-6 sm:h-8" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" />
-                    <img className="h-5 sm:h-7" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" />
-                    <img className="h-6 sm:h-8" src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" />
-                    <img className="h-5 sm:h-7" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="Infosys" />
+             <FadeIn delay="duration-1000">
+                <div className="mt-16">
+                    <p className="text-sm uppercase tracking-widest text-light-text-secondary dark:text-dark-text-secondary mb-6">
+                        OUR GRADUATES HAVE BEEN HIRED BY
+                    </p>
+                    <div className="flex justify-center items-center gap-x-8 sm:gap-x-12 lg:gap-x-16 grayscale opacity-60 dark:opacity-40">
+                        <img className="h-6 sm:h-8" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" />
+                        <img className="h-5 sm:h-7" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" />
+                        <img className="h-6 sm:h-8" src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" />
+                        <img className="h-5 sm:h-7" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="Infosys" />
+                    </div>
                 </div>
             </FadeIn>
         </div>
@@ -82,6 +86,25 @@ const WhyHuntifyySection: React.FC = () => (
     </section>
 );
 
+const PlatformVideoSection: React.FC = () => (
+    <section className="py-20 bg-light-bg-main dark:bg-dark-bg-main">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <FadeIn>
+                <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary p-8 md:p-12 rounded-xl text-center shadow-soft dark:shadow-soft-dark border border-light-border dark:border-dark-border">
+                    <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">See Our Platform in Action</h2>
+                    <p className="text-light-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto mb-12">
+                        A glimpse into how we train, mentor, and connect the next generation of innovators.
+                    </p>
+                    <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-lg overflow-hidden shadow-md border border-light-border/50 dark:border-dark-border/50">
+                        <div className="bg-light-bg-main dark:bg-dark-bg-main w-full h-full flex items-center justify-center">
+                            <p className="text-light-text-secondary dark:text-dark-text-secondary text-xl">Platform Video Coming Soon</p>
+                        </div>
+                    </div>
+                </div>
+            </FadeIn>
+        </div>
+    </section>
+);
 
 const TechLogo: React.FC<{ name: string, path: string }> = ({ name, path }) => (
   <div className="flex items-center justify-center p-3 bg-light-bg-main dark:bg-dark-bg-secondary rounded-lg border border-light-border dark:border-dark-border" title={name}>
@@ -242,6 +265,7 @@ const Home: React.FC = () => {
         <div className="bg-light-bg-main dark:bg-dark-bg-main">
             <HeroSection />
             <WhyHuntifyySection />
+            <PlatformVideoSection />
             <ProgramsSection />
             <MentorsSection />
             <HowItWorksSection />
