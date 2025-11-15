@@ -40,55 +40,99 @@ const InlineStatItem: React.FC<{ value: number; startValue?: number; label: stri
     );
 };
 
+const ProgramFeature: React.FC<{
+    title: string;
+    subtitle: string;
+    description: string;
+    stats: { value: number; startValue?: number; label: string; suffix?: string; }[];
+    buttonLink: string;
+    buttonText: string;
+    imageUrl: string;
+    imageAlt: string;
+    imagePosition: 'left' | 'right';
+}> = ({ title, subtitle, description, stats, buttonLink, buttonText, imageUrl, imageAlt, imagePosition }) => {
+    
+    const textContent = (
+        <div className={`text-center md:text-left ${imagePosition === 'left' ? 'order-1 md:order-2' : ''}`}>
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4">{title}</h2>
+            <h3 className="text-2xl font-poppins font-semibold text-primary mb-4">{subtitle}</h3>
+            <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary mb-8">
+                {description}
+            </p>
+            <div className="flex gap-12 mb-8 justify-center md:justify-start">
+                {stats.map(stat => <InlineStatItem key={stat.label} {...stat} />)}
+            </div>
+            <Link to={buttonLink}><Button variant="outline">{buttonText}</Button></Link>
+        </div>
+    );
+
+    const imageContent = (
+         <div className={`relative w-full h-80 rounded-lg overflow-hidden border border-light-border dark:border-dark-border group ${imagePosition === 'left' ? 'order-2 md:order-1' : ''}`}>
+             <img
+                src={imageUrl}
+                alt={imageAlt}
+                className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+            />
+        </div>
+    );
+
+    return (
+        <FadeIn>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+                {imagePosition === 'left' ? (
+                    <>
+                        {imageContent}
+                        {textContent}
+                    </>
+                ) : (
+                    <>
+                        {textContent}
+                        {imageContent}
+                    </>
+                )}
+            </div>
+        </FadeIn>
+    );
+};
+
+
+const programsData = [
+    {
+        title: "The Arena",
+        subtitle: "AI Agent Builder Challenge",
+        description: "This is more than a competition—it's a crucible for elite developers. Step into a high-stakes, 30-day challenge to build, train, and deploy advanced AI agents. Prove your mastery and claim your place among the best.",
+        stats: [
+            { value: 50, label: "Lakhs+ Prize Pool" },
+            { value: 30, label: "Day Challenge" },
+        ],
+        buttonLink: "/programs",
+        buttonText: "Explore the Challenge",
+        imageUrl: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?auto=format&fit=crop&w=1740&q=80",
+        imageAlt: "Developer coding an AI agent for a competition",
+        imagePosition: 'right' as const,
+    },
+    {
+        title: "The Launchpad",
+        subtitle: "Startup Pitch Support",
+        description: "Your idea, any sector. This is where visionary concepts take flight. We provide the mentorship, resources, and investor network to transform groundbreaking ideas into market-ready ventures.",
+        stats: [
+            { value: 50, startValue: 20, label: "Startups Pitched", suffix: "+" },
+            { value: 1000, startValue: 900, label: "Innovators Joined", suffix: "+" },
+        ],
+        buttonLink: "/programs",
+        buttonText: "Discover the Support",
+        imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1740&q=80",
+        imageAlt: "Startup Support - Team Collaboration",
+        imagePosition: 'left' as const,
+    },
+];
+
 const ProgramsSection: React.FC = () => (
     <section className="py-20 bg-light-bg-secondary dark:bg-dark-bg-secondary border-y border-light-border dark:border-dark-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-            <FadeIn>
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div className="text-center md:text-left">
-                        <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4">The Arena</h2>
-                        <h3 className="text-2xl font-poppins font-semibold text-primary mb-4">AI Agent Builder Challenge</h3>
-                        <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary mb-8">
-                            This is more than a competition—it's a crucible for elite developers. Step into a high-stakes, 30-day challenge to build, train, and deploy advanced AI agents. Prove your mastery and claim your place among the best.
-                        </p>
-                        <div className="flex gap-12 mb-8 justify-center md:justify-start">
-                            <InlineStatItem value={50} label="Lakhs+ Prize Pool" />
-                            <InlineStatItem value={30} label="Day Challenge" />
-                        </div>
-                        <Link to="/programs"><Button variant="outline">Explore the Challenge</Button></Link>
-                    </div>
-                    <div className="relative w-full h-80 rounded-lg overflow-hidden border border-light-border dark:border-dark-border">
-                         <img
-                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1740&q=80"
-                            alt="AI Challenge - Data Analytics"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                </div>
-            </FadeIn>
-            <FadeIn>
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div className="relative w-full h-80 rounded-lg overflow-hidden border border-light-border dark:border-dark-border order-2 md:order-1">
-                         <img
-                            src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1740&q=80"
-                            alt="Startup Support - Team Collaboration"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                     <div className="text-center md:text-left order-1 md:order-2">
-                        <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4">The Launchpad</h2>
-                        <h3 className="text-2xl font-poppins font-semibold text-primary mb-4">Startup Pitch Support</h3>
-                        <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary mb-8">
-                            Your idea, any sector. This is where visionary concepts take flight. We provide the mentorship, resources, and investor network to transform groundbreaking ideas into market-ready ventures.
-                        </p>
-                        <div className="flex gap-12 mb-8 justify-center md:justify-start">
-                            <InlineStatItem value={50} startValue={20} label="Startups Pitched" suffix="+" />
-                            <InlineStatItem value={1000} startValue={900} label="Innovators Joined" suffix="+" />
-                        </div>
-                        <Link to="/programs"><Button variant="outline">Discover the Support</Button></Link>
-                    </div>
-                </div>
-            </FadeIn>
+            {programsData.map((program) => (
+                <ProgramFeature key={program.title} {...program} />
+            ))}
         </div>
     </section>
 );

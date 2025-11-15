@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider, useAppContext } from './context/AppContext';
 import Header from './components/Header';
@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import PaymentSuccess from './pages/PaymentSuccess';
+import IntroAnimation from './components/IntroAnimation';
 
 
 const ScrollToTop: React.FC = () => {
@@ -28,12 +29,37 @@ const ScrollToTop: React.FC = () => {
 
 const ThemedApp: React.FC = () => {
     const { theme } = useAppContext();
+    const [isIntroVisible, setIsIntroVisible] = useState(true);
 
     useEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove('light', 'dark');
         root.classList.add(theme);
     }, [theme]);
+
+    useEffect(() => {
+        try {
+            if (sessionStorage.getItem('huntifyyIntroShown')) {
+                setIsIntroVisible(false);
+            }
+        } catch (e) {
+            // sessionStorage is not available, skip intro
+            setIsIntroVisible(false);
+        }
+    }, []);
+
+    const handleIntroFinish = () => {
+        setIsIntroVisible(false);
+        try {
+            sessionStorage.setItem('huntifyyIntroShown', 'true');
+        } catch (e) {
+            // sessionStorage is not available
+        }
+    };
+
+    if (isIntroVisible) {
+        return <IntroAnimation onFinish={handleIntroFinish} />;
+    }
 
     return (
         <HashRouter>
