@@ -237,40 +237,6 @@ const HowItWorksSection: React.FC = () => {
   );
 };
 
-const PlatformVideoSection: React.FC = () => (
-    <section className="py-20 bg-light-bg-secondary dark:bg-dark-bg-secondary">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn>
-                <h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-4">See Huntifyy in Action</h2>
-                <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto text-center mb-12">
-                    Watch our platform overview to understand how we empower developers and founders.
-                </p>
-            </FadeIn>
-            <FadeIn>
-                <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-soft border border-light-border dark:border-dark-border">
-                    <video
-                        controls
-                        autoPlay
-                        loop
-                        muted
-                        playsInline // Important for iOS autoplay
-                        className="w-full h-full object-cover"
-                        aria-label="Huntifyy Platform Overview Video"
-                    >
-                        {/* 
-                            Please replace "/videos/platform-overview.mp4" with the actual path
-                            to your video file once it's uploaded to your public assets.
-                        */}
-                        <source src="/videos/platform-overview.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </FadeIn>
-        </div>
-    </section>
-);
-
-
 const Home: React.FC = () => {
     return (
         <div className="bg-light-bg-main dark:bg-dark-bg-main">
@@ -279,7 +245,6 @@ const Home: React.FC = () => {
             <ProgramsSection />
             <MentorsSection />
             <HowItWorksSection />
-            <PlatformVideoSection />
         </div>
     );
 };
