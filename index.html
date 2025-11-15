@@ -57,44 +57,6 @@
             }
         }
     </script>
-    <style>
-        @keyframes draw-logo {
-            to { stroke-dashoffset: 0; }
-        }
-        @keyframes fill-logo {
-            to { fill-opacity: 1; }
-        }
-        @keyframes fade-in-logo {
-            to { opacity: 1; }
-        }
-
-        .logo-anim-circle {
-            stroke: #FBBF24;
-            stroke-width: 1;
-            /* Circumference of circle r=15 is ~94.2 */
-            stroke-dasharray: 95;
-            stroke-dashoffset: 95;
-            fill-opacity: 0;
-            animation: 
-                draw-logo 1.5s ease-out forwards,
-                fill-logo 0.5s ease-in forwards 1.3s;
-        }
-        .logo-anim-chevron {
-            stroke: #9CA3AF;
-            stroke-width: 1;
-            /* Estimated path length */
-            stroke-dasharray: 70;
-            stroke-dashoffset: 70;
-            fill-opacity: 0;
-            animation: 
-                draw-logo 1s ease-out forwards 0.5s,
-                fill-logo 0.5s ease-in forwards 1.5s;
-        }
-        .logo-anim-text {
-            opacity: 0;
-            animation: fade-in-logo 1s ease-out forwards 1.5s;
-        }
-    </style>
 <script type="importmap">
 {
   "imports": {

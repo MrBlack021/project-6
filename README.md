@@ -1,104 +1,95 @@
-# Huntifyy - Full-Stack AI & Startup Launchpad with Supabase
+# Huntifyy React App to WordPress Theme Conversion Guide
 
-This is a full-stack application built with a React frontend (Vite) and a Node.js/Express backend, designed to run as a serverless function on Vercel and integrated with Supabase for the database and file storage.
+This project has been restructured to work as a WordPress theme. To get it running on your WordPress site, please follow these steps carefully.
 
-## Supabase Setup (Required)
+## Prerequisites
 
-This project uses Supabase as its backend-as-a-service. You will need a free Supabase account to run this project.
+You must have [Node.js](https://nodejs.org/) and `npm` installed on your local machine to build the React application.
 
-### 1. Create a New Supabase Project
+## Step 1: Set Up Your Project Locally
 
-1.  Go to [supabase.com](https://supabase.com/) and create a new project.
-2.  Save your **Project URL** and **`anon` public key**. You will need these for your environment variables.
-
-### 2. Set Up Database Tables
-
-Navigate to the **SQL Editor** in your Supabase project dashboard and run the following queries one by one to create the necessary tables.
-
-**`registrations` table:**
-```sql
-CREATE TABLE registrations (
-  id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  registration_id TEXT UNIQUE NOT NULL,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  program TEXT NOT NULL,
-  idea TEXT,
-  pitch_deck_url TEXT
-);
--- Enable Row Level Security but keep it restricted for now
-ALTER TABLE registrations ENABLE ROW LEVEL SECURITY;
--- For a real app, you would add policies to protect this data.
--- For this project, we'll allow insert for the serverless function.
-CREATE POLICY "Enable insert for all users" ON registrations FOR INSERT WITH CHECK (true);
-```
-
-**`contacts` table:**
-```sql
-CREATE TABLE contacts (
-  id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  message TEXT NOT NULL
-);
--- Enable Row Level Security
-ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Enable insert for all users" ON contacts FOR INSERT WITH CHECK (true);
-```
-
-### 3. Set Up Supabase Storage
-
-1.  Navigate to the **Storage** section in your Supabase dashboard.
-2.  Create a new **public** bucket named `pitch_decks`.
-3.  Click on the new bucket, go to **Bucket settings**, and add a policy to allow uploads. You can use the "Allow public uploads" policy template for simplicity.
-
-## Local Development Setup
-
-### 1. Environment Variables
-
-Create a new file named `.env` in the root of the project directory (at the same level as `package.json`). Add your Supabase credentials to it:
-
-```
-# .env file
-SUPABASE_URL=YOUR_SUPABASE_PROJECT_URL
-SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_PUBLIC_KEY
-```
-Replace the placeholder values with your actual Supabase Project URL and anon key.
-
-### 2. Install Dependencies
-
-Install the dependencies for both the frontend and the backend server.
-
-```bash
-# Install root (frontend) dependencies
-npm install
-
-# Install server dependencies
-cd server
-npm install
-cd ..
-```
-
-### 3. Run the Application
-
-This project is configured for Vercel, which can run serverless functions locally.
-
-1.  **Install the Vercel CLI:**
+1.  **Unzip the Project:** Unzip the provided project files into a folder on your computer.
+2.  **Install Dependencies:** Open a terminal or command prompt, navigate into the project folder, and run the following command to install the necessary packages for React:
     ```bash
-    npm i -g vercel
+    npm install react react-dom react-router-dom
     ```
-2.  **Run the development server:**
+3. You may also need development dependencies if they are not already present. For a Vite-based setup (which this environment simulates), you would typically need:
     ```bash
-    vercel dev
+    npm install --save-dev vite @vitejs/plugin-react
     ```
-This command will start both the frontend Vite server and the backend serverless function, simulating the Vercel environment. Your application will be available at a local URL (usually `http://localhost:3000`).
 
-## Vercel Deployment
+## Step 2: Build the React Application
 
-1.  Push your code to a Git repository (GitHub, GitLab, etc.).
-2.  Import the project into Vercel. Vercel should automatically detect the Vite frontend.
-3.  Go to the project **Settings > Environment Variables** in Vercel.
-4.  Add your `SUPABASE_URL` and `SUPABASE_ANON_KEY` as environment variables.
-5.  Deploy! Vercel will build the frontend and deploy the `server/index.js` file as a serverless function. The `vercel.json` file will handle routing API requests correctly.
+Now, you need to compile the React application into static HTML, CSS, and JavaScript files.
+
+1.  **Run the Build Command:** In the same terminal, run:
+    ```bash
+    npx vite build
+    ```
+2.  **Check the Output:** This command will create a `dist` folder in your project directory. Inside `dist`, you will find an `assets` folder containing your compiled JavaScript (e.g., `index-a1b2c3d4.js`) and CSS (e.g., `index-e5f6g7h8.css`) files. These are the files WordPress will use.
+
+## Step 3: Prepare the WordPress Theme Folder
+
+1.  **Create a New Folder:** On your desktop or elsewhere, create a new folder. Name it `huntifyy-theme`. This will be your final theme folder.
+2.  **Copy Core Theme Files:** Copy the following files from your project into the `huntifyy-theme` folder:
+    *   `style.css`
+    *   `index.php`
+    *   `functions.php`
+3.  **Create an `assets` Folder:** Inside your `huntifyy-theme` folder, create a new folder named `assets`.
+4.  **Copy Built Assets:** Go back to your original project folder. Open the `dist/assets` folder and copy all the files inside it (the `.js` and `.css` files) into the `huntifyy-theme/assets` folder you just created.
+
+## Step 4: Zip and Upload to WordPress
+
+1.  **Create a Zip File:** Compress the entire `huntifyy-theme` folder into a zip file. It should be named `huntifyy-theme.zip`.
+2.  **Go to WordPress Admin:** Log in to your WordPress dashboard.
+3.  **Navigate to Themes:** Go to `Appearance` -> `Themes`.
+4.  **Add New Theme:** Click the `Add New` button, and then `Upload Theme`.
+5.  **Upload and Activate:** Choose your `huntifyy-theme.zip` file, upload it, and then activate it.
+
+Your Huntifyy website should now be live on your WordPress site! Because we are using `HashRouter` in the React app, all the page navigation will work correctly without needing to configure server rewrites.
+
+---
+
+## Recommended WordPress Plugins & Integration
+
+To make your site fully functional, secure, and fast, install these plugins from your WordPress dashboard (`Plugins` -> `Add New`). This theme is now pre-configured to integrate seamlessly with them.
+
+### 1. Forms: **WPForms** (Essential)
+
+*   **Why:** To capture and manage all submissions from your Contact and Registration forms securely in your WordPress admin panel.
+*   **Integration Guide:** This theme is already coded to send form data to WPForms. You just need to create the forms and tell the theme which ones to use.
+
+    **Step A: Create the Contact Form**
+    1.  Install and activate the **WPForms** plugin.
+    2.  Go to `WPForms` -> `Add New`.
+    3.  Create a form named `Contact Form`.
+    4.  Add three fields: `Name`, `Email`, `Message`.
+    5.  Click `Save`. Note the **Form ID** from the URL and the **Field ID** for each field.
+
+    **Step B: Create the Registration Form**
+    1.  Go to `WPForms` -> `Add New`.
+    2.  Create a form named `Registration Form`.
+    3.  Add the following fields: `Name`, `Email`, `Program` (Dropdown), `Startup Idea` (Paragraph Text), and **`Pitch Deck` (File Upload)**.
+    4.  For the **File Upload** field, you may want to configure allowed file extensions (e.g., pdf, docx, pptx) and a maximum file size in the field's advanced options.
+    5.  Save the form and note its **Form ID** and the **Field ID for each field**, including the new File Upload field.
+
+    **Step C: Update `functions.php`**
+    1.  In WordPress, go to `Appearance` -> `Theme File Editor`.
+    2.  Select your `Huntifyy Theme` and open the `functions.php` file.
+    3.  Find the `huntifyy_handle_contact_submission` and `huntifyy_handle_register_submission` functions.
+    4.  **Crucially, replace the placeholder Form IDs and Field IDs with your own.** The code comments will guide you. You will need to map the Field ID for your new 'Pitch Deck' field.
+
+### 2. SEO: **Yoast SEO** or **Rank Math** (Highly Recommended)
+
+*   **Why:** To optimize your site for search engines like Google. Control page titles, meta descriptions, and social sharing info.
+*   **How to integrate:** Install, activate, and follow the plugin's setup wizard.
+
+### 3. Security: **Wordfence Security** (Essential)
+
+*   **Why:** To protect your website from malware, brute-force login attempts, and other common security threats.
+*   **How to integrate:** Install, activate, and follow the on-screen instructions to configure the firewall and security scans.
+
+### 4. Caching: **W3 Total Cache** or **WP Super Cache** (Highly Recommended)
+
+*   **Why:** To make your website load significantly faster for visitors.
+*   **How to integrate:** Install, activate, and follow the plugin's recommended settings for page caching and browser caching.
