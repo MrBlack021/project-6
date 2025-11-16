@@ -1,3 +1,7 @@
+
+
+
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
@@ -40,7 +44,7 @@ const InlineStatItem: React.FC<{ value: number; startValue?: number; label: stri
     );
 };
 
-const ProgramFeature: React.FC<{
+interface ProgramFeatureProps {
     title: string;
     subtitle: string;
     description: string;
@@ -50,7 +54,10 @@ const ProgramFeature: React.FC<{
     imageUrl: string;
     imageAlt: string;
     imagePosition: 'left' | 'right';
-}> = ({ title, subtitle, description, stats, buttonLink, buttonText, imageUrl, imageAlt, imagePosition }) => {
+    objectFit?: 'cover' | 'contain';
+}
+
+const ProgramFeature: React.FC<ProgramFeatureProps> = ({ title, subtitle, description, stats, buttonLink, buttonText, imageUrl, imageAlt, imagePosition, objectFit = 'cover' }) => {
     
     const textContent = (
         <div className={`text-center md:text-left ${imagePosition === 'left' ? 'order-1 md:order-2' : ''}`}>
@@ -67,11 +74,11 @@ const ProgramFeature: React.FC<{
     );
 
     const imageContent = (
-         <div className={`relative w-full h-80 rounded-lg overflow-hidden border border-light-border dark:border-dark-border group ${imagePosition === 'left' ? 'order-2 md:order-1' : ''}`}>
+         <div className={`relative w-full h-80 rounded-lg overflow-hidden border border-light-border dark:border-dark-border group ${imagePosition === 'left' ? 'order-2 md:order-1' : ''} ${objectFit === 'contain' ? 'bg-light-bg-secondary dark:bg-dark-bg-secondary p-4' : ''}`}>
              <img
                 src={imageUrl}
                 alt={imageAlt}
-                className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                className={`w-full h-full object-${objectFit} transition-transform duration-500 ease-in-out group-hover:scale-105`}
             />
         </div>
     );
@@ -96,7 +103,7 @@ const ProgramFeature: React.FC<{
 };
 
 
-const programsData = [
+const programsData: ProgramFeatureProps[] = [
     {
         title: "The Arena",
         subtitle: "AI Agent Builder Challenge",
@@ -107,8 +114,8 @@ const programsData = [
         ],
         buttonLink: "/programs",
         buttonText: "Explore the Challenge",
-        imageUrl: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?auto=format&fit=crop&w=1740&q=80",
-        imageAlt: "Developer coding an AI agent for a competition",
+        imageUrl: "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&w=1740&q=80",
+        imageAlt: "A developer working on a complex AI agent project on a multi-monitor setup.",
         imagePosition: 'right' as const,
     },
     {

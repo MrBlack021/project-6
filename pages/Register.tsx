@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
@@ -106,7 +107,7 @@ const Register: React.FC = () => {
                     <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border rounded-lg shadow-soft dark:shadow-soft-dark overflow-hidden">
                         <form onSubmit={handleFormSubmit} className="p-8 md:p-12" noValidate>
                             <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2 text-center">Register for a Program</h1>
-                            <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 text-center">One-time Fee: ₹1,499</p>
+                            <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 text-center">Your journey starts here. Fill out the form to begin.</p>
 
                             <div className="space-y-6">
                                 <FormInput id="name" label="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} error={errors.name} required />
