@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
@@ -29,7 +27,6 @@ const FormTextarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement> &
 );
 
 const Register: React.FC = () => {
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -41,6 +38,7 @@ const Register: React.FC = () => {
     const [fileName, setFileName] = useState('');
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [serverError, setServerError] = useState('');
 
     const programInfo = {
         'AI Agent Builder Challenge': 'A 30-day competition to build, train, and deploy AI agents. Perfect for developers looking to prove their skills.',
@@ -83,21 +81,42 @@ const Register: React.FC = () => {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setServerError('');
         if (!validate()) {
             return;
         }
 
         setIsSubmitting(true);
 
-        // Redirect directly to the payment gateway
-        window.location.href = 'https://rzp.io/rzp/iZa83jT';
+        try {
+            const response = await fetch('http://localhost:3001/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    program: formData.program,
+                    idea: formData.idea,
+                }),
+            });
 
-        // NOTE: The previous client-side registration data storage and redirection
-        // to /payment-success have been removed, as the payment is now handled
-        // by an external gateway. The external gateway would typically redirect
-        // back to your site (e.g., to /dashboard) with payment status,
-        // which would then need to be handled to set registrationId and registrationData.
-        // This current change only implements the *redirect out* to the payment gateway.
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Registration failed.');
+            }
+
+            const data = await response.json();
+
+            // Store temporary ID to be used after payment for confirmation
+            sessionStorage.setItem('huntifyy-temp-id', data.tempId);
+
+            // Redirect to payment gateway
+            window.location.href = 'https://rzp.io/rzp/iZa83jT';
+
+        } catch (error) {
+            setServerError(error instanceof Error ? error.message : 'An unexpected error occurred.');
+            setIsSubmitting(false);
+        }
     };
     
     return (
@@ -136,16 +155,16 @@ const Register: React.FC = () => {
                                      <>
                                         <FormTextarea id="idea" label="Your Startup Idea (Briefly)" value={formData.idea} onChange={(e) => setFormData({...formData, idea: e.target.value})} error={errors.idea} placeholder="Describe your concept in a few sentences." required />
                                         <div>
-                                            <label htmlFor="pitchDeck" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Pitch Deck (Optional)</label>
-                                            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-light-border dark:border-dark-border border-dashed rounded-md">
+                                            <label htmlFor="pitchDeck" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Pitch Deck (Optional, Coming Soon)</label>
+                                            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-light-border dark:border-dark-border border-dashed rounded-md opacity-50">
                                                 <div className="space-y-1 text-center">
                                                     <svg className="mx-auto h-12 w-12 text-light-text-secondary/50 dark:text-dark-text-secondary/50" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                     <div className="flex text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                                                        <label htmlFor="pitchDeck" className="relative cursor-pointer bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-md font-medium text-primary hover:opacity-80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-light-bg-secondary dark:focus-within:ring-offset-dark-bg-secondary focus-within:ring-primary px-1">
+                                                        <label htmlFor="pitchDeck" className="relative cursor-not-allowed bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-md font-medium text-primary hover:opacity-80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-light-bg-secondary dark:focus-within:ring-offset-dark-bg-secondary focus-within:ring-primary px-1">
                                                             <span>Upload a file</span>
-                                                            <input id="pitchDeck" name="pitchDeck" type="file" className="sr-only" onChange={handleFileChange} accept=".pdf,.doc,.docx,.ppt,.pptx" />
+                                                            <input id="pitchDeck" name="pitchDeck" type="file" className="sr-only" onChange={handleFileChange} accept=".pdf,.doc,.docx,.ppt,.pptx" disabled />
                                                         </label>
                                                         <p className="pl-1">or drag and drop</p>
                                                     </div>
@@ -170,6 +189,8 @@ const Register: React.FC = () => {
                                     {errors.terms && <p className="text-red-500 text-xs mt-1">{errors.terms}</p>}
                                 </div>
                             </div>
+                            
+                            {serverError && <p className="text-red-500 text-sm text-center mt-4">{serverError}</p>}
                             
                             <div className="mt-8">
                                 <Button type="submit" variant="primary" className="w-full text-lg" disabled={isSubmitting}>

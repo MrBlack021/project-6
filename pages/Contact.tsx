@@ -5,6 +5,7 @@ import Button from '../components/Button';
 const Contact: React.FC = () => {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [status, setStatus] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -12,15 +13,30 @@ const Contact: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
         setStatus('Sending...');
 
-        // Simulate a successful network request without a backend
-        setTimeout(() => {
+        try {
+            const response = await fetch('http://localhost:3001/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to send message.');
+            }
+            
             setStatus('Thank you! Your message has been sent.');
             setFormData({ name: '', email: '', message: '' });
-            // Clear the status message after 5 seconds
             setTimeout(() => setStatus(''), 5000);
-        }, 1000);
+
+        } catch (error) {
+            setStatus(error instanceof Error ? error.message : 'An unexpected error occurred.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -59,12 +75,12 @@ const Contact: React.FC = () => {
                                 ></textarea>
                             </div>
                             <div>
-                                <Button type="submit" variant="primary" className="w-full" disabled={status === 'Sending...'}>
-                                    {status === 'Sending...' ? 'Sending...' : 'Send Message'}
+                                <Button type="submit" variant="primary" className="w-full" disabled={isSubmitting}>
+                                    {isSubmitting ? 'Sending...' : 'Send Message'}
                                 </Button>
                             </div>
                             {status && status !== 'Sending...' && (
-                                <p className={`text-center mt-4 text-sm ${status.includes('error') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
+                                <p className={`text-center mt-4 text-sm ${status.includes('Failed') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
                             )}
                         </form>
                     </div>
