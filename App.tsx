@@ -16,6 +16,10 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import PaymentSuccess from './pages/PaymentSuccess';
 import IntroAnimation from './components/IntroAnimation';
+import StartupCell from './pages/StartupCell';
+import Mentorship from './pages/Mentorship';
+import AiAutomation from './pages/AiAutomation';
+import Investors from './pages/Investors';
 
 
 const ScrollToTop: React.FC = () => {
@@ -71,6 +75,10 @@ const ThemedApp: React.FC = () => {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/programs" element={<Programs />} />
+                        <Route path="/startup-cell" element={<StartupCell />} />
+                        <Route path="/mentorship" element={<Mentorship />} />
+                        <Route path="/ai-automation" element={<AiAutomation />} />
+                        <Route path="/investors" element={<Investors />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/testimonials" element={<Testimonials />} />
                         <Route path="/register" element={<Register />} />

@@ -5,7 +5,7 @@ import { LogoIcon } from './LogoIcon';
 import Button from './Button';
 
 const SocialIcon: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="text-light-text-secondary dark:text-dark-text-secondary hover:text-primary transition-all duration-300 transform hover:scale-110">
+    <a href={href} target="_blank" rel="noopener noreferrer" className="text-light-text-secondary dark:text-dark-text-secondary hover:text-accent transition-all duration-300 transform hover:scale-110">
         {children}
     </a>
 );
@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-light-bg-main dark:bg-dark-bg-main relative pt-1">
+        <footer className="bg-light-bg-secondary dark:bg-dark-bg-secondary relative pt-1 border-t border-light-border dark:border-dark-border">
             {/* Top Gradient Border */}
             <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-accent opacity-50"></div>
 
@@ -28,50 +28,66 @@ const Footer: React.FC = () => {
                 {/* CTA Section */}
                 <div className="py-12 md:py-16 text-center border-b border-light-border dark:border-dark-border">
                     <h2 className="text-3xl md:text-4xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">
-                        Ready to Build the Future?
+                        Ready to Foster Innovation?
                     </h2>
                     <p className="text-light-text-secondary dark:text-dark-text-secondary max-w-xl mx-auto mb-8">
-                        Join our next cohort of innovators. Register for the AI Challenge or pitch your startup idea today.
+                        Empower your students and build a thriving startup ecosystem at your institution. Partner with us today.
                     </p>
-                    <Link to="/register">
-                        <Button variant="gradient">
-                            Register Now
-                        </Button>
-                    </Link>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link to="/contact">
+                            <Button variant="primary">
+                                Partner with Us
+                            </Button>
+                        </Link>
+                         <Link to="/register">
+                            <Button variant="outline">
+                                Register a Student
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Main Footer Links */}
                 <div className="py-8 grid grid-cols-2 md:grid-cols-4 gap-8">
                      <div>
-                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Quick Links</h3>
+                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Company</h3>
                         <ul className="space-y-3">
                             <FooterLink to="/about">About Us</FooterLink>
-                            <FooterLink to="/programs">Programs</FooterLink>
                             <FooterLink to="/testimonials">Testimonials</FooterLink>
-                            <FooterLink to="/faq">FAQ</FooterLink>
+                             <FooterLink to="/contact">Contact Us</FooterLink>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Programs</h3>
+                        <ul className="space-y-3">
+                            <FooterLink to="/programs">Overview</FooterLink>
+                            <FooterLink to="/startup-cell">Startup Cell</FooterLink>
+                            <FooterLink to="/mentorship">Mentorship</FooterLink>
+                             <FooterLink to="/ai-automation">AI & Automation</FooterLink>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">For Whom</h3>
+                        <ul className="space-y-3">
+                             <FooterLink to="/#why-colleges">Colleges</FooterLink>
+                             <FooterLink to="/register">Students</FooterLink>
+                             <FooterLink to="/investors">Investors</FooterLink>
                         </ul>
                     </div>
 
                     <div>
                         <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Legal</h3>
                         <ul className="space-y-3">
-                            <FooterLink to="/terms-and-conditions">Terms and Conditions</FooterLink>
-                            <FooterLink to="/privacy-policy">Privacy Policy</FooterLink>
-                            <FooterLink to="/contact">Contact Us</FooterLink>
+                            <FooterLink to="/terms-and-conditions">Terms</FooterLink>
+                            <FooterLink to="/privacy-policy">Privacy</FooterLink>
                         </ul>
-                    </div>
-                    
-                    <div className="space-y-3 col-span-2 md:col-span-2">
-                        <h3 className="text-base font-poppins font-semibold text-light-text-main dark:text-dark-text-main mb-4">Get In Touch</h3>
-                        <div className="flex items-center space-x-2 text-light-text-secondary dark:text-dark-text-secondary text-sm">
-                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
-                             <a href="mailto:info@huntifyy.com" className="hover:text-light-text-main dark:hover:text-dark-text-main transition-colors duration-300">info@huntifyy.com</a>
-                        </div>
                     </div>
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="py-6 flex flex-col md:flex-row items-center justify-between">
+                <div className="py-6 flex flex-col md:flex-row items-center justify-between border-t border-light-border dark:border-dark-border">
                     <div className="flex items-center space-x-3 mb-4 md:mb-0">
                          <LogoIcon className="h-8 w-auto" />
                          <p className="text-light-text-secondary dark:text-dark-text-secondary text-sm">&copy; {currentYear} Huntifyy. All rights reserved.</p>

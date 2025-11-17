@@ -17,27 +17,17 @@ const Contact: React.FC = () => {
         setIsSubmitting(true);
         setStatus('Sending...');
 
-        try {
-            const response = await fetch('http://localhost:3001/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to send message.');
+        // Simulate API call
+        setTimeout(() => {
+            if (formData.name && formData.email && formData.message) {
+                 setStatus('Thank you! Your message has been sent.');
+                 setFormData({ name: '', email: '', message: '' });
+                 setTimeout(() => setStatus(''), 5000);
+            } else {
+                setStatus('Please fill out all fields.');
             }
-            
-            setStatus('Thank you! Your message has been sent.');
-            setFormData({ name: '', email: '', message: '' });
-            setTimeout(() => setStatus(''), 5000);
-
-        } catch (error) {
-            setStatus(error instanceof Error ? error.message : 'An unexpected error occurred.');
-        } finally {
             setIsSubmitting(false);
-        }
+        }, 1000);
     };
 
     return (
@@ -47,7 +37,7 @@ const Contact: React.FC = () => {
                     <header className="text-center mb-12">
                         <h1 className="text-4xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">Get In Touch</h1>
                         <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
-                            Have a question or proposal? We'd love to hear from you.
+                            Have a question, proposal, or want to become a partner? We'd love to hear from you.
                         </p>
                     </header>
                 </FadeIn>
@@ -81,7 +71,7 @@ const Contact: React.FC = () => {
                                 </Button>
                             </div>
                             {status && status !== 'Sending...' && (
-                                <p className={`text-center mt-4 text-sm ${status.includes('Failed') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
+                                <p className={`text-center mt-4 text-sm ${status.includes('Failed') || status.includes('fill') ? 'text-red-500' : 'text-green-500'}`}>{status}</p>
                             )}
                         </form>
                     </div>

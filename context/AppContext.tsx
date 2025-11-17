@@ -14,6 +14,7 @@ export interface Testimonial {
     name: string;
     title: string;
     location: string;
+    type: 'student' | 'college' | 'investor';
 }
 
 interface AppContextType {
@@ -24,89 +25,53 @@ interface AppContextType {
     theme: Theme;
     toggleTheme: () => void;
     testimonials: Testimonial[];
-    addTestimonial: (testimonial: Omit<Testimonial, 'location'>) => Promise<void>;
+    addTestimonial: (testimonial: Omit<Testimonial, 'location' | 'type'>) => Promise<void>;
     loadingTestimonials: boolean;
     testimonialError: string | null;
 }
 
 const staticTestimonials: Testimonial[] = [
     {
-        name: 'Suresh Reddy',
-        title: 'Full-Stack Developer',
-        quote: "The AI agents course was very practical and insightful. I learned to integrate AI APIs seamlessly into my projects. The real-world examples helped me understand agent memory and workflows better.",
-        location: 'Hyderabad'
+        name: 'Dr. Aarav Sharma',
+        title: 'Dean of Engineering, Tech University',
+        quote: "Partnering with Huntifyy to establish our Startup Cell has been transformative. Our students are more engaged, and we've seen a 40% increase in participation in innovation-related activities.",
+        location: 'Pune',
+        type: 'college',
     },
     {
-        name: 'Anjali Kumar',
-        title: 'Software Engineer',
-        quote: "Great course for developers! It explained AI agent architecture clearly and gave hands-on experience with API integration. I feel confident building intelligent applications now.",
-        location: 'Bengaluru'
+        name: 'Sneha Gupta',
+        title: 'Co-founder, Edutech Startup',
+        quote: "The 30-day mentorship program was a game-changer. We went from a rough idea to a polished pitch deck that secured us a meeting with three angel investors. The guidance was invaluable.",
+        location: 'Bengaluru',
+        type: 'student',
     },
     {
-        name: 'Rohan Patel',
-        title: 'Founder',
-        quote: 'Huntifyy\'s mentorship was the turning point for our startup. They helped us restructure our entire pitch deck, and we closed our pre-seed round in two months.',
-        location: 'Mumbai'
+        name: 'Vikram Reddy',
+        title: 'Angel Investor',
+        quote: "The quality of startups coming through Huntifyy's Investor Pitch Day is impressive. They are well-mentored, have clear value propositions, and are ready for seed-stage investment.",
+        location: 'Hyderabad',
+        type: 'investor',
     },
     {
-        name: 'Ravi Teja',
-        title: 'Entrepreneur',
-        quote: "This course helped me understand how AI agents can automate business workflows. The practical projects were extremely useful for my startup applications.",
-        location: 'Chennai'
+        name: 'Rohan Mehta',
+        title: 'Student & Founder',
+        quote: 'Huntifyy gave me the framework and confidence to turn my final year project into a real business. The mentors helped me understand market validation and what it takes to build an MVP.',
+        location: 'Mumbai',
+        type: 'student',
     },
     {
-        name: 'Priya Sharma',
-        title: 'AI Challenge Graduate',
-        quote: 'The AI Challenge pushed my limits. I started with a basic understanding of Python and ended up building a functional customer support chatbot that uses a fine-tuned LLM.',
-        location: 'Bengaluru'
+        name: 'Priya Singh',
+        title: 'Head of Incubation, Innovation Hub',
+        quote: "Huntifyy's structured approach and industry connections have significantly boosted our college's IIC and NAAC scores. The faculty workload is minimal, yet the impact is immense.",
+        location: 'Delhi',
+        type: 'college',
     },
     {
-        name: 'Venkatesh Naidu',
-        title: 'Product Manager',
-        quote: "Excellent course! The hands-on projects made learning AI agents enjoyable. Now I can design interactive web applications with AI capabilities for my products.",
-        location: 'Hyderabad'
-    },
-    {
-        name: 'Anjali Rao',
-        title: 'ML Engineer & AI Challenge Alumna',
-        quote: 'I was stuck in a rut, just doing frontend work. The AI challenge was exactly what I needed. Building a real-time data analysis agent gave me the confidence and a standout project for my portfolio.',
-        location: 'Hyderabad'
-    },
-    {
-        name: 'Priya Rani',
+        name: 'Ananya Desai',
         title: 'Computer Science Student',
-        quote: "Very well-structured course. I gained knowledge on multi-agent systems, integrating AI APIs, and storing agent memory efficiently. It strengthened my full-stack skills.",
-        location: 'Pune'
-    },
-    {
-        name: 'Deepika Sharma',
-        title: 'Data Analyst',
-        quote: "The course explained AI agent concepts very clearly. I learned how to connect backend, databases, and AI APIs, which will help me in my analytics projects.",
-        location: 'Delhi'
-    },
-    {
-        name: 'Mahesh Babu',
-        title: 'Student',
-        quote: "A very practical and easy-to-follow course. It taught me how to create full-stack applications with AI agent integrations, and the projects were highly motivating.",
-        location: 'Visakhapatnam'
-    },
-    {
-        name: 'Swapna Reddy',
-        title: 'Startup Founder',
-        quote: "The course provided excellent insights into AI agents. I now understand how to implement intelligent features for my startup's products using APIs and memory management.",
-        location: 'Bengaluru'
-    },
-    {
-        name: 'Krishna Chaitanya',
-        title: 'Web Developer',
-        quote: "Hands-on and insightful. I learned to build interactive applications with AI agents and manage conversation memory effectively. Highly recommended for full-stack developers.",
-        location: 'Hyderabad'
-    },
-    {
-        name: 'Haritha',
-        title: 'M.Tech Student',
-        quote: "Well-structured and practical course. The projects on multi-agent workflows helped me understand real-world implementation. It boosted my confidence in AI-based applications.",
-        location: 'Warangal'
+        quote: "The AI & Automation workshop was eye-opening. Learning about RAG systems gave my startup idea a unique technical edge. It's the kind of practical knowledge you don't get in class.",
+        location: 'Chennai',
+        type: 'student',
     }
 ];
 
@@ -132,10 +97,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
     };
 
-    const addTestimonial = async (testimonial: Omit<Testimonial, 'location'>): Promise<void> => {
+    const addTestimonial = async (testimonial: Omit<Testimonial, 'location' | 'type'>): Promise<void> => {
        const newTestimonial: Testimonial = {
            ...testimonial,
            location: 'Online',
+           type: 'student',
        };
        setTestimonials(prevTestimonials => [newTestimonial, ...prevTestimonials]);
        return Promise.resolve();

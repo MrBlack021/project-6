@@ -4,36 +4,36 @@ import { FadeIn } from '../components/FadeIn';
 
 const faqs = [
     {
-        question: "Who is the AI Agent Builder Challenge for?",
-        answer: "The challenge is designed for individuals with some programming experience (preferably Python) who want to dive deep into applied AI. It's perfect for students, developers, and tech enthusiasts looking to test their skills in a competitive environment."
+        question: "What is a Startup & Innovation Cell?",
+        answer: "A Startup & Innovation Cell is a dedicated center within a college, established in partnership with Huntifyy, to foster a culture of entrepreneurship. It serves as a hub for workshops, mentorship, and resources for aspiring student founders."
     },
     {
-        question: "Are there prizes for the AI Agent Builder Challenge?",
-        answer: "Yes! The challenge is a competition with a prize pool ranging from ₹5,000 to ₹5,00,000 for our top performers. It's a fantastic opportunity to showcase your skills and get rewarded for your innovation."
+        question: "Who can join the Student Mentorship Program?",
+        answer: "The program is open to all students of our partner colleges, from any academic discipline. We look for passion, a clear problem to solve, and the dedication to build a solution. Both individuals and teams can apply."
     },
     {
-        question: "What do I need to prepare for the Startup Pitch Support program?",
-        answer: "You should have a clear idea for a startup. A basic business plan or a simple presentation is helpful, but not required. The most important thing is a passion for your idea and a vision for its potential."
+        question: "How does Huntifyy help our college's rankings (NAAC/IIC)?",
+        answer: "Our structured programs, industry collaborations, and focus on innovation directly align with the criteria for NAAC accreditation and the Institution's Innovation Council (IIC) framework. We provide documentation and reports to support your college's submissions, highlighting increased entrepreneurial activity and student success."
     },
     {
-        question: "Does my startup idea have to be related to AI?",
-        answer: "Not at all. While our AI Challenge is tech-focused, our Startup Pitch Support program is open to innovative ideas from all sectors. We are looking for visionary founders with groundbreaking concepts, regardless of the industry."
+        question: "What is the time commitment required from our faculty?",
+        answer: "Our model is designed for minimal faculty workload. Huntifyy manages the program operations, mentorship sessions, and investor connections. We collaborate with a faculty coordinator from your side for smooth execution, but the day-to-day heavy lifting is on us."
     },
     {
-        question: "What happens after I submit my startup idea?",
-        answer: "Our expert panel reviews every submission. The most promising ideas are presented directly to our network of investors. If your idea gains traction, we provide dedicated support, mentorship, and resources to help you build and launch your startup."
+        question: "How are startups selected for Investor Pitch Day?",
+        answer: "Startups are selected based on their progress during the 30-day mentorship program. We evaluate them on criteria such as market validation, MVP development, team strength, and scalability. Only the most promising and well-prepared startups get the chance to pitch."
     },
     {
-        question: "Is the registration fee refundable?",
-        answer: "The registration fee is non-refundable as it grants you immediate access to our platform, learning materials, and community forums. We are confident in the value our programs provide."
+        question: "Do students need a fully-formed business idea to join a program?",
+        answer: "Not necessarily. Students can join our initial awareness workshops to explore ideas. For the mentorship program, a basic concept is required, but it doesn't need to be fully developed. Our program is designed to help them refine it."
     },
-    {
-        question: "What kind of support can I expect during the programs?",
-        answer: "You will have access to dedicated mentors via scheduled sessions and a private community channel (like Discord or Slack) for peer-to-peer support and quick questions."
+     {
+        question: "What kind of support can students expect?",
+        answer: "Students receive one-on-one mentorship from industry experts, hands-on workshops on business modeling and pitch deck creation, access to our resource library, and networking opportunities with other founders and investors."
     },
-    {
-        question: "Do I get a certificate after completing a program?",
-        answer: "Yes, upon successful completion of either program, you will receive a digital certificate from Huntifyy that you can share on your professional networks and resume."
+     {
+        question: "Is there a fee for colleges to partner with Huntifyy?",
+        answer: "We offer various partnership models, some of which involve a fee to cover program costs, while others are based on a revenue-sharing model from successful student startups. Please contact us for a detailed proposal."
     }
 ];
 
@@ -47,7 +47,7 @@ const AccordionItem: React.FC<{ q: string; a: string; }> = ({ q, a }) => {
             >
                 <span className="text-lg font-semibold text-light-text-main dark:text-dark-text-main">{q}</span>
                 <span className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
             </button>
             <div className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
@@ -67,7 +67,7 @@ const FAQ: React.FC = () => {
                     <header className="text-center mb-12">
                         <h1 className="text-4xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">Frequently Asked Questions</h1>
                         <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
-                            Have questions? We've got answers. If you don't see your question here, feel free to reach out.
+                            Answers to common questions from colleges, students, and investors.
                         </p>
                     </header>
                 </FadeIn>

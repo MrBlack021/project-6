@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', classNam
             variantClasses = 'border border-light-border dark:border-dark-border text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-bg-secondary dark:hover:bg-dark-bg-secondary hover:text-light-text-main dark:hover:text-dark-text-main focus:ring-primary/20';
             break;
         case 'gradient':
-             variantClasses = 'bg-light-text-main dark:bg-dark-text-main text-light-bg-main dark:text-dark-bg-main hover:opacity-90 focus:ring-primary/30';
+             variantClasses = 'bg-accent text-primary hover:opacity-90 focus:ring-accent/30';
             break;
         case 'primary':
         default:

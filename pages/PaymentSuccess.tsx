@@ -10,51 +10,30 @@ const PaymentSuccess: React.FC = () => {
     const [status, setStatus] = useState('Confirming your payment and registration...');
 
     useEffect(() => {
-        const confirmRegistration = async () => {
-            const tempId = sessionStorage.getItem('huntifyy-temp-id');
+        // This is a mock confirmation flow.
+        // In a real application, you would receive a token from the payment gateway,
+        // send it to your backend to verify the payment, and then get registration data back.
+        const confirmRegistration = () => {
+            setStatus('Payment confirmed! Finalizing your registration...');
 
-            if (!tempId) {
-                setStatus('No registration session found. Redirecting...');
-                setTimeout(() => navigate('/register'), 2000);
-                return;
-            }
+            setTimeout(() => {
+                // Generate a mock registration ID and data
+                const registration_id = 'HN2025' + Math.floor(100000 + Math.random() * 900000);
+                const mockData = {
+                    name: 'Valued Student',
+                    email: 'student@example.com',
+                    program: 'Student Mentorship Program',
+                };
+                
+                // Set global state
+                setRegistrationId(registration_id);
+                setRegistrationData(mockData);
 
-            try {
-                const response = await fetch('http://localhost:3001/api/confirm-registration', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ tempId }),
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Failed to confirm registration.');
-                }
-
-                const data = await response.json();
-
-                // Set global state with confirmed registration data
-                setRegistrationId(data.registration_id);
-                setRegistrationData({
-                    name: data.name,
-                    email: data.email,
-                    program: data.program,
-                });
-
-                // Clean up and redirect
-                sessionStorage.removeItem('huntifyy-temp-id');
                 setStatus('Success! Redirecting to your dashboard...');
                 setTimeout(() => navigate('/dashboard'), 1500);
-
-            } catch (error) {
-                console.error("Error confirming registration:", error);
-                const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
-                setStatus(`Error: ${errorMessage} Redirecting...`);
-                setTimeout(() => navigate('/contact'), 4000);
-            }
+            }, 2000);
         };
 
-        // Delay execution slightly to simulate payment gateway redirect time
         const timer = setTimeout(confirmRegistration, 1000);
         return () => clearTimeout(timer);
 
