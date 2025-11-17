@@ -10,10 +10,13 @@ const port = process.env.PORT || 3001;
 /*
 -- SUPABASE SQL SETUP --
 -- Run these queries in your Supabase SQL Editor to create the necessary tables.
+-- NOTE: The 'user_id' column is for integrating with Supabase Authentication.
+-- To use it effectively, you'll need to enable Auth and pass the user's ID from your frontend.
 
 -- 1. Registrations Table
 CREATE TABLE registrations (
     id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES auth.users(id), -- This column is needed for RLS policies.
     temp_id VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -28,6 +31,7 @@ CREATE TABLE registrations (
 -- 2. Contact Submissions Table
 CREATE TABLE contact_submissions (
     id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES auth.users(id), -- Optional: Link to the authenticated user
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
@@ -37,6 +41,7 @@ CREATE TABLE contact_submissions (
 -- 3. Testimonials Table
 CREATE TABLE testimonials (
     id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES auth.users(id), -- Optional: Link to the authenticated user
     name VARCHAR(255) NOT NULL,
     title VARCHAR(255) NOT NULL,
     quote TEXT NOT NULL,
