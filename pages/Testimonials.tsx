@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { FadeIn } from '../components/FadeIn';
 import { useAppContext } from '../context/AppContext';
@@ -17,82 +18,73 @@ const TestimonialCard: React.FC<Testimonial> = ({ quote, name, location, title }
     </div>
 );
 
-const TestimonialForm: React.FC = () => {
+const ShareExperienceForm: React.FC = () => {
     const { addTestimonial } = useAppContext();
-    const [name, setName] = useState('');
-    const [title, setTitle] = useState('');
-    const [quote, setQuote] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
+    const [formData, setFormData] = useState({ name: '', title: '', quote: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
-        setSuccess(false);
-
-        if (!name.trim() || !title.trim() || !quote.trim()) {
-            setError('All fields are required.');
-            return;
-        }
-
+        if (!formData.name.trim() || !formData.title.trim() || !formData.quote.trim()) return;
+        
         setIsSubmitting(true);
-        try {
-            await addTestimonial({ name, title, quote });
-            setName('');
-            setTitle('');
-            setQuote('');
-            setSuccess(true);
-            setTimeout(() => setSuccess(false), 4000); // Hide success message after 4s
-        } catch (submissionError) {
-             setError(submissionError instanceof Error ? submissionError.message : 'An unknown error occurred.');
-        } finally {
-            setIsSubmitting(false);
-        }
+        await addTestimonial(formData);
+        setIsSubmitting(false);
+        setSubmitted(true);
+        setFormData({ name: '', title: '', quote: '' });
+        
+        setTimeout(() => setSubmitted(false), 4000);
     };
 
     return (
         <FadeIn>
-            <div className="max-w-3xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 sm:p-10 rounded-lg shadow-soft dark:shadow-soft-dark mb-16">
-                <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-2 text-center">Share Your Experience</h2>
-                <p className="text-light-text-secondary dark:text-dark-text-secondary mb-8 text-center">Help others by sharing your story with Huntifyy.</p>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-6">
+            <div className="max-w-2xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 sm:p-10 rounded-lg shadow-soft dark:shadow-soft-dark mb-16">
+                <h2 className="text-2xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-6 text-center">Share Your Experience</h2>
+                {submitted ? (
+                    <div className="text-center text-green-500 bg-green-500/10 p-4 rounded-lg transition-opacity duration-300">
+                        Thank you! Your feedback has been added for this session.
+                    </div>
+                ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label htmlFor="form-name" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Full Name</label>
+                            <label htmlFor="name" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Full Name</label>
                             <input
-                                type="text" name="name" id="form-name" value={name} onChange={(e) => setName(e.target.value)} required
+                                type="text" name="name" id="name" value={formData.name}
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                required
                                 className="block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                             />
                         </div>
                         <div>
-                            <label htmlFor="form-title" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Role / Company</label>
+                            <label htmlFor="title" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Your Title (e.g., Developer, Founder)</label>
                             <input
-                                type="text" name="title" id="form-title" value={title} onChange={(e) => setTitle(e.target.value)} required placeholder="e.g., Founder, ConnectSphere"
+                                type="text" name="title" id="title" value={formData.title}
+                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                required
                                 className="block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
                             />
                         </div>
-                    </div>
-                    <div>
-                        <label htmlFor="form-quote" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Your Review</label>
-                        <textarea
-                            name="quote" id="form-quote" rows={4} value={quote} onChange={(e) => setQuote(e.target.value)} required
-                            className="block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
-                        ></textarea>
-                    </div>
-                     {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-                     {success && <p className="text-green-500 text-sm text-center">Thank you! Your review has been submitted.</p>}
-                    <div>
-                        <Button type="submit" variant="primary" className="w-full" disabled={isSubmitting}>
-                            {isSubmitting ? 'Submitting...' : 'Submit Review'}
-                        </Button>
-                    </div>
-                </form>
+                        <div>
+                            <label htmlFor="quote" className="block text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-1">Your Feedback</label>
+                            <textarea
+                                name="quote" id="quote" rows={4} value={formData.quote}
+                                onChange={(e) => setFormData({ ...formData, quote: e.target.value })}
+                                required
+                                className="block w-full px-4 py-3 bg-light-bg-main dark:bg-dark-bg-main border border-light-border dark:border-dark-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-light-text-main dark:text-dark-text-main"
+                            ></textarea>
+                        </div>
+                        <div>
+                            <Button type="submit" variant="primary" className="w-full" disabled={isSubmitting}>
+                                {isSubmitting ? 'Submitting...' : 'Submit My Testimonial'}
+                            </Button>
+                        </div>
+                    </form>
+                )}
             </div>
         </FadeIn>
     );
 };
-
 
 const Testimonials: React.FC = () => {
     const { testimonials, loadingTestimonials, testimonialError } = useAppContext();
@@ -108,7 +100,7 @@ const Testimonials: React.FC = () => {
                     </header>
                 </FadeIn>
 
-                <TestimonialForm />
+                <ShareExperienceForm />
 
                 {loadingTestimonials && (
                      <div className="text-center">

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FadeIn } from '../components/FadeIn';
@@ -21,13 +22,17 @@ const TimelineStep: React.FC<{ icon: React.ReactNode; title: string; description
     );
 };
 
-const CurriculumWeek: React.FC<{ week: number; title: string; description: string; project: string }> = ({ week, title, description, project }) => (
-    <div className="py-4 border-b border-light-border dark:border-dark-border last:border-b-0">
-        <h4 className="font-poppins font-bold text-lg text-primary">Week {week}: {title}</h4>
-        <p className="text-light-text-secondary dark:text-dark-text-secondary mt-1">{description}</p>
-        <p className="text-sm text-light-text-main dark:text-dark-text-main mt-2"><strong className="text-light-text-secondary dark:text-dark-text-secondary">Mini-Project:</strong> {project}</p>
-    </div>
-);
+const curriculumModules = [
+    { title: 'Foundations of AI Agents', description: 'Understand what agents are, from reactive to autonomous, and the role of LLMs.' },
+    { title: 'Retrieval-Augmented Generation', description: 'Learn about embeddings, vector databases, and the RAG pipeline for smarter retrieval.' },
+    { title: 'Building Agents with LangChain', description: 'Explore LangChain concepts, agent types, and common design patterns for development.' },
+    { title: 'Agent Memory', description: 'Dive into memory types, multi-agent architectures, and building multi-modal agents.' },
+    { title: 'Tool Integration', description: 'Discover how to integrate various tools, apply guardrails, and optimize agent performance.' },
+    { title: 'Deployment and Ethics', description: 'Cover deployment options, monitoring, distributed systems, and the ethical considerations of AI.' },
+    { title: 'Resources and References', description: 'Get familiar with MLOps tools, LLM providers, vector databases, and key documentation.' },
+    { title: 'Grand Challenge', description: 'Apply everything you\'ve learned in a final, complex, real-world task to compete for the prize pool.' }
+];
+
 
 const Programs: React.FC = () => {
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
@@ -51,7 +56,7 @@ const Programs: React.FC = () => {
                     <div className="bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-lg shadow-soft dark:shadow-soft-dark mb-16">
                         <div className="grid md:grid-cols-2 gap-12 items-start">
                             <div>
-                                <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">AI Challenge: A Talent Pipeline</h2>
+                                <h2 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">AI Agent Builder Challenge</h2>
                                 <p className="text-light-text-secondary dark:text-dark-text-secondary mb-6">More than a competition, our AI Challenge is a high-fidelity talent vetting process. We identify and cultivate elite AI developers through practical, high-pressure challenges, producing graduates who are not just skilled, but proven innovators ready to build.</p>
                                 <div className="my-6 p-4 bg-primary/10 border-l-4 border-primary rounded-r-sm">
                                     <p className="font-bold text-primary">🏆 Prize Pool: ₹5,000 to ₹5,00,000 for top performers!</p>
@@ -59,24 +64,18 @@ const Programs: React.FC = () => {
                                 
                                 <button onClick={() => setIsDetailsVisible(prev => !prev)} className="text-primary hover:opacity-80 font-semibold mb-6 inline-block group">
                                     <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                                        {isDetailsVisible ? 'Hide Curriculum Details' : 'View Full Curriculum →'}
+                                        {isDetailsVisible ? 'Hide Full Curriculum' : 'View Full Curriculum →'}
                                     </span>
                                 </button>
 
                                 <div className={`transition-all duration-700 ease-in-out overflow-hidden ${isDetailsVisible ? 'max-h-[1500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                                    <div className="space-y-4 pt-4 border-t border-light-border dark:border-dark-border">
-                                        <div>
-                                            <h3 className="font-poppins font-bold text-xl mb-2 text-light-text-main dark:text-dark-text-main">Phase 1: 20-Day Learning & Practice</h3>
-                                            <p className="text-light-text-secondary dark:text-dark-text-secondary mb-4">The first 20 days are an intensive, structured curriculum covering everything from AI fundamentals to advanced agent deployment. Each week includes daily practices, hands-on labs, and a mini-project to solidify your skills.</p>
-                                            <CurriculumWeek week={1} title="AI Fundamentals & Python Brush-up" description="Get introduced to core AI concepts, set up your development environment, and master Python libraries essential for AI/ML." project="A simple recommendation script." />
-                                            <CurriculumWeek week={2} title="Machine Learning & Data Handling" description="Explore supervised/unsupervised learning, preprocess data with Pandas, and build your first models with Scikit-learn." project="A customer segmentation model." />
-                                            <CurriculumWeek week={3} title="Deep Learning & APIs" description="Dive into neural networks with TensorFlow/PyTorch and learn to build and integrate REST APIs for your models." project="An image classifier with a simple API." />
-                                            <CurriculumWeek week={4} title="Advanced Agent Logic & Deployment" description="Master state management, long-term memory for agents, and deploy your creations to a cloud environment." project="A conversational chatbot agent." />
-                                        </div>
-                                         <div>
-                                            <h3 className="font-poppins font-bold text-xl mb-2 text-light-text-main dark:text-dark-text-main">Phase 2: 10-Day Grand Challenge</h3>
-                                            <p className="text-light-text-secondary dark:text-dark-text-secondary">The final 10 days are the ultimate test. You'll tackle two complex, real-world tasks where your agents will be judged on efficiency, accuracy, and innovation. This is your chance to shine and win from the prize pool!</p>
-                                        </div>
+                                    <div className="pt-4 border-t border-light-border dark:border-dark-border grid sm:grid-cols-2 gap-6">
+                                        {curriculumModules.map((module, index) => (
+                                            <div key={index} className="bg-light-bg-main dark:bg-dark-bg-main p-4 rounded-lg border border-light-border dark:border-dark-border">
+                                                <h4 className="font-poppins font-bold text-light-text-main dark:text-dark-text-main">{module.title}</h4>
+                                                <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-1">{module.description}</p>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
 

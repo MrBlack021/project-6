@@ -1,3 +1,4 @@
+
 # Huntifyy React App to WordPress Theme Conversion Guide
 
 This project has been restructured to work as a WordPress theme. To get it running on your WordPress site, please follow these steps carefully.

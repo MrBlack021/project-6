@@ -79,7 +79,7 @@ const Register: React.FC = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleFormSubmit = async (e: React.FormEvent) => {
+    const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setServerError('');
         if (!validate()) {
@@ -88,35 +88,8 @@ const Register: React.FC = () => {
 
         setIsSubmitting(true);
 
-        try {
-            const response = await fetch('http://localhost:3001/api/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    program: formData.program,
-                    idea: formData.idea,
-                }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Registration failed.');
-            }
-
-            const data = await response.json();
-
-            // Store temporary ID to be used after payment for confirmation
-            sessionStorage.setItem('huntifyy-temp-id', data.tempId);
-
-            // Redirect to payment gateway
-            window.location.href = 'https://rzp.io/rzp/iZa83jT';
-
-        } catch (error) {
-            setServerError(error instanceof Error ? error.message : 'An unexpected error occurred.');
-            setIsSubmitting(false);
-        }
+        // Bypassing backend call and redirecting directly to payment page as requested.
+        window.location.href = 'https://rzp.io/rzp/iZa83jT';
     };
     
     return (

@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export const StartupIcon: React.FC<{className?: string}> = ({ className }) => (
