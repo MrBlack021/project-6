@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com" dangerously-disable-csp></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -17,20 +17,22 @@
                 extend: {
                     colors: {
                         'primary': '#0A2540', // Deep Blue
+                        'primary-light': '#163A5F',
                         'accent': '#D4AF37', // Gold
+                        'accent-light': '#FCE588',
                         'light': {
                             'bg-main': '#FFFFFF',
-                            'bg-secondary': '#F7F9FC',
-                            'text-main': '#0A2540',
-                            'text-secondary': '#525F7F',
+                            'bg-secondary': '#F8FAFC',
+                            'text-main': '#0F172A',
+                            'text-secondary': '#475569',
                             'border': '#E2E8F0',
                         },
                         'dark': {
-                            'bg-main': '#0A2540',
-                            'bg-secondary': '#113254',
-                            'text-main': '#F7F9FC',
-                            'text-secondary': '#A0AEC0',
-                            'border': '#2D3748',
+                            'bg-main': '#020617',
+                            'bg-secondary': '#0F172A',
+                            'text-main': '#F8FAFC',
+                            'text-secondary': '#94A3B8',
+                            'border': '#1E293B',
                         }
                     },
                     fontFamily: {
@@ -38,31 +40,74 @@
                         poppins: ['Poppins', 'sans-serif'],
                     },
                     boxShadow: {
-                        'soft': '0 4px 12px rgba(0, 0, 0, 0.05)',
-                        'soft-dark': '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'soft-dark': '0 10px 40px -10px rgba(0,0,0,0.5)',
+                        'glow': '0 0 20px rgba(212, 175, 55, 0.3)',
                     },
                     keyframes: {
-                        'grid-pan': {
-                            '0%': { backgroundPosition: '0% 0%' },
-                            '100%': { backgroundPosition: '100% 100%' },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         },
-                        'growth': {
-                            '0%, 100%': { transform: 'scale(1)', opacity: '0.1' },
-                            '50%': { transform: 'scale(1.2)', opacity: '0.15' },
+                        'shine': {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
                         },
-                        'intro-fade-out': {
-                            'to': { opacity: '0', transform: 'translateY(-20px)' }
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                         'intro-fade-out': {
+                            'to': { opacity: '0', transform: 'scale(1.1)', pointerEvents: 'none' }
                         }
                     },
                     animation: {
-                        'grid-pan': 'grid-pan 30s linear infinite',
-                        'growth': 'growth 15s ease-in-out infinite',
-                        'intro-fade-out': 'intro-fade-out 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'shine': 'shine 8s linear infinite',
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                        'intro-fade-out': 'intro-fade-out 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards',
                     },
                 }
             }
         }
     </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #FCE588 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 8s linear infinite;
+        }
+    </style>
 <script type="importmap">
 {
   "imports": {
@@ -74,7 +119,7 @@
 }
 </script>
 </head>
-<body class="bg-light-bg-main text-light-text-main font-sans overflow-x-hidden">
+<body class="bg-light-bg-main dark:bg-dark-bg-main text-light-text-main dark:text-dark-text-main font-sans overflow-x-hidden antialiased selection:bg-accent selection:text-primary">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>
