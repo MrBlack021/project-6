@@ -5,4 +5,4 @@ Place your static assets here.
 
 ## Images
 
-- `logo.png`: The main logo file for the application. Please replace this with your actual logo file.
+-   `logo.png`: This file is required in the `public/` directory for the site logo and favicons.

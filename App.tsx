@@ -15,11 +15,11 @@ import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import PaymentSuccess from './pages/PaymentSuccess';
-import IntroAnimation from './components/IntroAnimation';
 import StartupCell from './pages/StartupCell';
 import Mentorship from './pages/Mentorship';
 import AiAutomation from './pages/AiAutomation';
 import Investors from './pages/Investors';
+import { IntroAnimation } from './components/IntroAnimation';
 
 
 const ScrollToTop: React.FC = () => {
@@ -34,37 +34,12 @@ const ScrollToTop: React.FC = () => {
 
 const ThemedApp: React.FC = () => {
     const { theme } = useAppContext();
-    const [isIntroVisible, setIsIntroVisible] = useState(true);
 
     useEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove('light', 'dark');
         root.classList.add(theme);
     }, [theme]);
-
-    useEffect(() => {
-        try {
-            if (sessionStorage.getItem('huntifyyIntroShown')) {
-                setIsIntroVisible(false);
-            }
-        } catch (e) {
-            // sessionStorage is not available, skip intro
-            setIsIntroVisible(false);
-        }
-    }, []);
-
-    const handleIntroFinish = () => {
-        setIsIntroVisible(false);
-        try {
-            sessionStorage.setItem('huntifyyIntroShown', 'true');
-        } catch (e) {
-            // sessionStorage is not available
-        }
-    };
-
-    if (isIntroVisible) {
-        return <IntroAnimation onFinish={handleIntroFinish} />;
-    }
 
     return (
         <HashRouter>
@@ -98,8 +73,18 @@ const ThemedApp: React.FC = () => {
 
 
 const App: React.FC = () => {
+    const [isIntroVisible, setIsIntroVisible] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsIntroVisible(false);
+        }, 2800); // Intro animation duration + fade out
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <AppProvider>
+            {isIntroVisible && <IntroAnimation />}
             <ThemedApp />
         </AppProvider>
     );
