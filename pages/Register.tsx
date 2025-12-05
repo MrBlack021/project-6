@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { FadeIn } from '../components/FadeIn';
+import { useAppContext } from '../context/AppContext';
 
 const FormInput: React.FC<React.InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string }> = ({ label, error, ...props }) => (
     <div>
@@ -28,6 +29,7 @@ const FormTextarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement> &
 );
 
 const Register: React.FC = () => {
+    const { setRegistrationId, setRegistrationData } = useAppContext();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -37,6 +39,7 @@ const Register: React.FC = () => {
     });
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [registrationComplete, setRegistrationComplete] = useState(false);
 
     const programInfo = {
         'Student Mentorship Program': 'A 30-day program to refine your startup idea and prepare a pitch for investors.',
@@ -60,19 +63,52 @@ const Register: React.FC = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validate()) {
             return;
         }
 
         setIsSubmitting(true);
-        // This would typically involve a backend call to create a pending registration.
-        // For this demo, we bypass it and redirect to a simulated payment page.
-        alert('Redirecting to payment gateway...');
-        window.location.href = 'https://rzp.io/l/huntifyy-demo'; // Using a demo payment link
+        
+        // Simulate a backend registration call
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+
+        // Generate a mock registration ID and data
+        const registration_id = 'HN2025' + Math.floor(100000 + Math.random() * 900000);
+        const mockData = {
+            name: formData.name,
+            email: formData.email,
+            program: formData.program,
+        };
+        
+        // Update global state
+        setRegistrationId(registration_id);
+        setRegistrationData(mockData);
+
+        setIsSubmitting(false);
+        setRegistrationComplete(true);
     };
     
+    if (registrationComplete) {
+        return (
+            <div className="bg-light-bg-main dark:bg-dark-bg-main py-16 min-h-[80vh] flex items-center justify-center">
+                <FadeIn>
+                    <div className="max-w-xl mx-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border p-8 md:p-12 rounded-xl shadow-soft text-center">
+                        <svg className="mx-auto h-20 w-20 text-green-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h1 className="text-3xl font-poppins font-bold text-light-text-main dark:text-dark-text-main mb-4">Happy to onboard!</h1>
+                        <p className="text-lg text-light-text-secondary dark:text-dark-text-secondary mb-8">
+                            Our team will reach out to you shortly. You can check your email for further instructions.
+                        </p>
+                        <Link to="/">
+                            <Button variant="primary">Go to Home</Button>
+                        </Link>
+                    </div>
+                </FadeIn>
+            </div>
+        );
+    }
+
     return (
         <div className="bg-light-bg-main dark:bg-dark-bg-main py-16 min-h-[80vh] flex items-center">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -130,7 +166,7 @@ const Register: React.FC = () => {
                             
                             <div className="mt-8">
                                 <Button type="submit" variant="primary" className="w-full text-lg" disabled={isSubmitting}>
-                                    {isSubmitting ? 'Processing...' : 'Proceed to Register'}
+                                    {isSubmitting ? 'Registering...' : 'Register'}
                                 </Button>
                             </div>
                         </form>

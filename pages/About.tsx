@@ -66,9 +66,9 @@ const About: React.FC = () => {
                         <h2 className="text-3xl font-poppins font-bold text-white text-center mb-12">Our Impact in Numbers</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             <StatItem value={500} suffix="+" label="Students Trained" />
-                            <StatItem value={25} suffix="+" label="Startups Mentored" />
+                            <StatItem value={12} suffix="+" label="Startups Mentored" />
                             <StatItem value={10} label="Colleges Partnered" />
-                            <StatItem value={5} suffix="+" label="Startups Funded" />
+                            <StatItem value={7} suffix="+" label="Startups Funded" />
                         </div>
                     </FadeIn>
                 </div>

@@ -62,9 +62,9 @@ const Investors: React.FC = () => {
                     <div className="py-12 mb-20 bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-3xl shadow-soft">
                         <h2 className="text-2xl font-poppins font-bold text-center mb-8 text-light-text-main dark:text-dark-text-main">Our Track Record</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
-                            <StatItem value={25} suffix="+" label="Startups Mentored" />
-                            <StatItem value={15} label="Pitched to Investors" />
-                            <StatItem value={5} suffix="+" label="Successfully Funded" />
+                            <StatItem value={12} suffix="+" label="Startups Mentored" />
+                            <StatItem value={18} label="Pitched to Investors" />
+                            <StatItem value={7} suffix="+" label="Successfully Funded" />
                              <StatItem value={70} suffix="%" label="Follow-on Interest" />
                         </div>
                     </div>

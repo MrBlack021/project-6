@@ -22,7 +22,7 @@ class Particle {
         this.originX = x;
         this.originY = y;
         this.color = color;
-        this.size = 2;
+        this.size = 2; // Fixed size for sharper image reproduction
         this.x = Math.random() * canvasWidth;
         this.y = Math.random() * canvasHeight;
         this.vx = (Math.random() - 0.5) * 10;
@@ -78,10 +78,6 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onFinish }) => {
         
         let animationFrameId: number;
         let particles: Particle[] = [];
-        const logoScale = 2.5;
-        const logoWidth = 200 * logoScale;
-        const logoHeight = 44 * logoScale;
-        const textFontSize = 24 * logoScale;
 
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
@@ -89,40 +85,43 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onFinish }) => {
         };
         resizeCanvas();
 
-        const initializeParticles = () => {
+        const initializeParticles = (image: HTMLImageElement) => {
             const tempCanvas = document.createElement('canvas');
             const tempCtx = tempCanvas.getContext('2d');
             if (!tempCtx) return;
 
-            tempCanvas.width = logoWidth;
-            tempCanvas.height = logoHeight;
+            // Determine draw size for the logo on the intro screen
+            // We want it relatively large but contained
+            const maxDimension = Math.min(canvas.width, 600) * 0.8;
+            const scale = Math.min(maxDimension / image.width, (canvas.height * 0.4) / image.height);
             
-            const textColor = theme === 'dark' ? '#9CA3AF' : '#6B7280';
-            tempCtx.fillStyle = textColor;
-            tempCtx.font = `bold ${textFontSize}px Poppins, sans-serif`;
-            tempCtx.textAlign = 'left';
-            tempCtx.textBaseline = 'middle';
-            tempCtx.fillText('Huntifyy', 52 * logoScale, 22 * logoScale);
-            
-            const circleColor = '#F59E0B';
-            tempCtx.fillStyle = circleColor;
-            tempCtx.beginPath();
-            tempCtx.arc(22 * logoScale, 22 * logoScale, 15 * logoScale, 0, Math.PI * 2);
-            tempCtx.fill();
+            const w = Math.floor(image.width * scale);
+            const h = Math.floor(image.height * scale);
 
-            const imageData = tempCtx.getImageData(0, 0, logoWidth, logoHeight);
-            const samplingRate = 4;
-            for (let y = 0; y < imageData.height; y += samplingRate) {
-                for (let x = 0; x < imageData.width; x += samplingRate) {
-                    const alphaIndex = (y * imageData.width + x) * 4 + 3;
+            tempCanvas.width = w;
+            tempCanvas.height = h;
+            
+            // Draw image to temp canvas
+            tempCtx.drawImage(image, 0, 0, w, h);
+
+            const imageData = tempCtx.getImageData(0, 0, w, h);
+            const samplingRate = 3; // Lower = more particles, Higher = performance
+
+            // Calculate offset to center the logo
+            const startX = (canvas.width - w) / 2;
+            const startY = (canvas.height - h) / 2;
+
+            for (let y = 0; y < h; y += samplingRate) {
+                for (let x = 0; x < w; x += samplingRate) {
+                    const alphaIndex = (y * w + x) * 4 + 3;
                     if (imageData.data[alphaIndex] > 128) {
                         const r = imageData.data[alphaIndex - 3];
                         const g = imageData.data[alphaIndex - 2];
                         const b = imageData.data[alphaIndex - 1];
                         const color = `rgb(${r},${g},${b})`;
                         
-                        const originX = (canvas.width / 2 - logoWidth / 2) + x;
-                        const originY = (canvas.height / 2 - logoHeight / 2) + y;
+                        const originX = startX + x;
+                        const originY = startY + y;
                         
                         particles.push(new Particle(originX, originY, color, canvas.width, canvas.height));
                     }
@@ -139,14 +138,21 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onFinish }) => {
             animationFrameId = requestAnimationFrame(animate);
         };
         
-        document.fonts.ready.then(() => {
+        // Load the logo image
+        const img = new Image();
+        img.src = '/logo.png';
+        img.crossOrigin = "Anonymous";
+        
+        img.onload = () => {
             particles = [];
-            initializeParticles();
+            initializeParticles(img);
             if (particles.length > 0) {
                  animate();
             }
-        });
+        };
 
+        // Fallback or simple timeout if image fails? 
+        // For now we rely on the image. If it fails, screen is blank until timeout.
 
         window.addEventListener('resize', resizeCanvas);
 
