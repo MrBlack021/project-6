@@ -3,7 +3,7 @@ import React, { useState, Fragment } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import Button from './Button';
 import { ThemeSwitcher } from './ThemeSwitcher';
-import { LogoIcon } from './LogoIcon';
+
 
 const useClickAway = (ref: React.RefObject<any>, handler: (event: MouseEvent | TouchEvent) => void) => {
     React.useEffect(() => {
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <NavLink to="/" className="flex items-center space-x-2">
-                        <LogoIcon className="h-10 w-auto" />
+                        <span className="font-poppins font-bold text-2xl text-primary dark:text-white">Huntifyy</span>
                     </NavLink>
 
                     <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">

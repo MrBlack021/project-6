@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { LogoIcon } from './LogoIcon';
+
 import { useAppContext } from '../context/AppContext';
 
 export const IntroAnimation: React.FC = () => {
@@ -22,7 +22,7 @@ export const IntroAnimation: React.FC = () => {
                 animationPhase === 'fade-out' ? 'animate-intro-fade-out' : 'opacity-100'
             }`}
         >
-            <LogoIcon className="h-48 w-auto text-primary" /> {/* Adjust size as needed */}
+            <span className="font-poppins font-extrabold text-7xl md:text-8xl text-primary dark:text-white">Huntifyy</span>
         </div>
     );
 };
